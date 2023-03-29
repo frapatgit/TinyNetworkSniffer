@@ -4,7 +4,7 @@
 
 # für Advanced Programming SS 2023
 
-Patrck Franck, Johannes Reusch
+Patrick Franck und Johannes Reusch.
 
 
 

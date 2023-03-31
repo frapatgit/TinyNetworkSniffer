@@ -15,7 +15,7 @@ Als Netzwerkadministrator möchte ich einen Docker-Container erstellen, der den 
 ## User-Storys:
 
 User-Story 1:
-Als Netzwerkadministrator möchte ich einen Docker-Container erstellen, der den Netzwerktraffic auf einem Gerät im Netzwerk per tcpdump mitschneidet.
+Als Netzwerkadministrator möchte ich einen Docker-Container erstellen, der den Netzwerktraffic auf einem Gerät im Netzwerk mitschneidet.
 
 User-Story 2: 
 Als Netzwerkadministrator möchte das alle Domains die innerhalb des Netwerkes aufgerufen wurden abgespeichert werden und abgerufen werden können.

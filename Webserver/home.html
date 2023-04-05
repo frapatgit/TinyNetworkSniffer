@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="sidebar">
+			<div class="logo">
+				<img src="Logoohnetext.png" alt="Logo">
+			</div>
+			<ul>
+				<li class="active"><a href="#">Dashboard</a></li>
+				<li><a href="#">Clients</a></li>
+				<li><a href="#">Queries</a></li>
+				<li><a href="#">Settings</a></li>
+				<li><a href="#">Tools</a></li>
+				<li><a href="#">Donate</a></li>
+			</ul>
+		</div>
+		<div class="header">
+			<h1>Tiny Network Sniffer</h1>
+            <h2>    -sniff packets not drugs-</h2>
+			<div class="user-info">
+				<p>Welcome, John Doe!</p>
+				<img src="user-avatar-icon.png" alt="User Avatar">
+			</div>
+		</div>
+		<div class="main-content">
+			<div class="dashboard">
+				<div class="dashboard-item">
+					<h2>Top malicious domains</h2>
+                    <h3>(past 24h)</h3>
+					<table>
+						<thead>
+							<tr>
+								<th>Destination</th>
+								<th>Host</th>
+								<th>Count</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>google.com</td>
+								<td>Smartphone</td>
+                                <td>458</td>
+							</tr>
+							<tr>
+								<td>177.149.1.21</td>
+								<td>SmartTV</td>
+								<td>59</td>
+							</tr>
+							<tr>
+								<td>PC</td>
+								<td>microsoft.com</td>
+								<td>789</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+                <div class="dashboard-item">
+                    <h2>Requests over time </h2>
+                    <canvas id="myChart"></canvas>
+                </div>
+                <div class="dashboard-item">
+                    <h2>Most malicious requests by client</h2>
+                    <canvas id="myChart2"></canvas>
+                </div>              
+			</div>
+		</div>
+	</div>
+</body>
+</html>

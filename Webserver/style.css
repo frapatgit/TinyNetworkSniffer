@@ -1,0 +1,174 @@
+/* Allgemeine Formatierung */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #4b4b4b7e;
+}
+
+/* Sidebar-Styles */
+.sidebar {
+  background-color: #000000;
+  color: #fff;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  width: 200px;
+  padding-left: 20px; /* Hier können Sie den Abstand anpassen */
+  display: flex; /* Verwenden Sie Flexbox */
+  flex-direction: column; /* Die Menüoptionen sollen in einer Spalte angeordnet werden */
+  align-items: flex-start; /* Linksbündige Ausrichtung */
+  justify-content: flex-start; /* Oben ausrichten */
+  top: 100px;
+  left: 200px; /* Hier setzen Sie den Abstand zum linken Rand */
+}
+
+/* Beispiel-Menüoption */
+.sidebar li {
+  padding: 10px;
+}
+
+
+.logo {
+  margin-left: -20px;
+  margin-bottom: 10px;
+  text-align: center;
+  background-color: #4169E1;
+}
+
+.logo img {
+  width: 50%;
+  display: inline-block;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  padding: 10px 20px;
+}
+
+li.active {
+  background-color: #4169E1;
+}
+
+li:hover {
+  background-color: #4169E1;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Main Content-Styles */
+.main-content {
+  padding-top: 200px;
+  margin-left: 200px;
+  padding: 20px;
+  background-color: #333;
+  margin-right: 100px;
+
+}
+
+.header {
+	background-color: #4169E1;
+	color: #fff;
+	padding: 0px;
+	flex-grow: 1;
+	margin-left: 200px;
+  margin-right: 100px;
+}
+
+.header h1 {
+  margin-left: 20px;
+  font-size: 24px;
+  font-weight: normal;
+  font-family: "Consolas", monospace;
+  color: #ffffff;
+}
+
+.header h2 {
+  margin-left: 20px;
+  font-size: 16px;
+  font-weight: normal;
+  font-family: "Consolas", monospace;
+  color: #ffffff;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: #4169E1;
+}
+
+.user-info p {
+  margin-right: 10px;
+}
+
+.user-info img {
+  width: 40px;
+}
+
+.dashboard {
+  justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  gap: 20px;
+  padding-left: 200px;
+  padding-right: 200px;
+}
+
+.dashboard-item {
+  flex: 1 1 300px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+  padding: 20px;
+  width: calc(33.33% - 10px);
+}
+
+.dashboard-item h2 {
+  font-family: "Consolas", monospace;
+  font-size: 20px;
+  font-weight: normal;
+  margin-bottom: 10px;
+  color: #333;
+}
+.dashboard-item h3 {
+  font-family: "Consolas", monospace;
+  font-size: 18px;
+  font-weight: normal;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.dashboard-item table {
+  border-collapse: collapse;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.dashboard-item table th,
+.dashboard-item table td {
+  font-family: "Consolas", monospace;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.dashboard-item table th {
+  background-color: #eee;
+  color: #333;
+}

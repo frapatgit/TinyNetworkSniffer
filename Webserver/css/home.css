@@ -124,7 +124,7 @@ a {
 
 .dashboard-item {
   flex: 1 1 300px;
-  background-color: #fff;
+  background-color: #bebebe;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -163,6 +163,6 @@ a {
 }
 
 .dashboard-item table th {
-  background-color: #eee;
+  background-color: rgb(170, 170, 170);
   color: #333;
 }

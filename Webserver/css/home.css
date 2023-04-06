@@ -7,7 +7,7 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #4b4b4b7e;
+  background-color: #3f3f3f7e;
 }
 
 /* Sidebar-Styles */
@@ -83,24 +83,14 @@ a {
 	color: #fff;
 	padding: 0px;
 	flex-grow: 1;
+  margin-top: 20px;
 	margin-left: 200px;
   margin-right: 100px;
 }
 
-.header h1 {
+.header img {
   margin-left: 20px;
-  font-size: 24px;
-  font-weight: normal;
-  font-family: "Consolas", monospace;
-  color: #ffffff;
-}
-
-.header h2 {
-  margin-left: 20px;
-  font-size: 16px;
-  font-weight: normal;
-  font-family: "Consolas", monospace;
-  color: #ffffff;
+  margin-top: 20px;
 }
 
 .user-info {
@@ -111,6 +101,10 @@ a {
 }
 
 .user-info p {
+  margin-right: 10px;
+}
+
+.user-info a {
   margin-right: 10px;
 }
 

@@ -6,7 +6,7 @@
 FRITZIP=http://fritz.box
 
 # This is the WAN interface
-IFACE="2-0"
+IFACE="2-1"
 
 # Lan Interface
 #IFACE="1-lan"
@@ -48,6 +48,6 @@ if [[ $SID =~ ^0+$ ]] ; then echo "Login failed. Did you create & use explicit F
 echo "Capturing traffic on Fritz!Box interface $IFACE ..." 1>&2
 
 # In case you want to use tshark instead of ntopng
-#wget --no-check-certificate -qO- $FRITZIP/cgi-bin/capture_notimeout?ifaceorminor=$IFACE\&snaplen=\&capture=Start\&sid=$SID | /usr/bin/tshark -r -
+wget --no-check-certificate -qO- $FRITZIP/cgi-bin/capture_notimeout?ifaceorminor=$IFACE\&snaplen=\&capture=Start\&sid=$SID | /usr/bin/tshark -r -
 
-wget --no-check-certificate -qO- $FRITZIP/cgi-bin/capture_notimeout?ifaceorminor=$IFACE\&snaplen=\&capture=Start\&sid=$SID | ntopng -i -
+#wget --no-check-certificate -qO- $FRITZIP/cgi-bin/capture_notimeout?ifaceorminor=$IFACE\&snaplen=\&capture=Start\&sid=$SID | ntopng -i -

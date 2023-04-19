@@ -10,7 +10,7 @@ Patrick Frank und Johannes Reusch.
 
 ## Epic:
 
-Als Netzwerkadministrator möchte ich einen Docker-Container erstellen, der den Netzwerktraffic auf einem Gerät im Netzwerk mitschneidet und die Domains mit Hilfe von VirusTotal überprüft. Die als bösartig markierten Domains sollen an einen Webserver gesendet werden. Auf diesem Webserver möchte ich mich anmelden und Statistiken zu den bösartigen Domains anzeigen lassen können. Der Datenaustausch zwischen dem Docker-Container und dem Webserver soll verschlüsselt stattfinden, um die Daten vor unautorisiertem Zugriff zu schützen.
+Als Netzwerkadministrator möchte ich einen Docker-Container erstellen, der den Netzwerktraffic auf einem Gerät im Netzwerk mitschneidet und die Domains mit Hilfe von VirusTotal überprüft. Die als bösartig markierten Domains sollen an einen Webserver gesendet werden. Auf diesem Webserver möchte ich mich anmelden und Statistiken zu den bösartigen Domains anzeigen lassen können. Der Datenaustausch zwischen dem Sniffer und dem Webserver soll verschlüsselt stattfinden, um die Daten vor unautorisiertem Zugriff zu schützen.
 
 ## User-Storys:
 

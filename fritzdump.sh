@@ -1,15 +1,14 @@
 #!/bin/bash
 
 # From https://github.com/ntop/ntopng/blob/dev/tools/fritzdump.sh
+# usage: fritzdump.sh [username] [password]
+
 
 # This is the address of the router
 FRITZIP=http://fritz.box
 
 # This is the WAN interface
 IFACE="2-1"
-
-# Lan Interface
-#IFACE="1-lan"
 
 # If you use password-only authentication use 'dslf-config' as username.
 FRITZUSER=$1
@@ -45,9 +44,27 @@ SID=$(cat $SIDFILE)
 # Check for successfull authentification
 if [[ $SID =~ ^0+$ ]] ; then echo "Login failed. Did you create & use explicit Fritz!Box users?" ; exit 1 ; fi
 
+# check if directory exists
+if [ ! -d "captures" ]; then
+    mkdir "captures"
+fi
+
 echo "Capturing traffic on Fritz!Box interface $IFACE ..." 1>&2
 
-# In case you want to use tshark instead of ntopng
-wget --no-check-certificate -qO- $FRITZIP/cgi-bin/capture_notimeout?ifaceorminor=$IFACE\&snaplen=\&capture=Start\&sid=$SID | /usr/bin/tshark -r -
-
-#wget --no-check-certificate -qO- $FRITZIP/cgi-bin/capture_notimeout?ifaceorminor=$IFACE\&snaplen=\&capture=Start\&sid=$SID | ntopng -i -
+while true; do
+  echo "Capturing traffic on Fritz!Box interface $IFACE for 10 s ..."
+  wget --no-check-certificate -qO- $FRITZIP/cgi-bin/capture_notimeout?ifaceorminor=$IFACE\&snaplen=\&capture=Start\&sid=$SID >> ./captures/capture_$(date +%Y%m%d_%H%M%S).pcap &
+  wget_pid=$!
+  trap "kill -- -$$" SIGINT
+  counter=0
+  timeout=10
+  while [[ -n $(ps -e | awk '{print $1}' | grep "$wget_pid") ]] && [[ "$counter" -lt "$timeout" ]]; do
+      sleep 1
+      counter=$(($counter+1))
+  done
+  if [[ -n $(ps -e | awk '{print $1}' | grep "$wget_pid") ]]; then
+    kill -s SIGKILL "$wget_pid"
+    sleep 1
+    echo "process capture terminated after 10 seconds ----- 2"
+  fi
+done

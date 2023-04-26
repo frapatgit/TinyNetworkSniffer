@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # From https://github.com/ntop/ntopng/blob/dev/tools/fritzdump.sh
+# usage: fritzdump.sh [username] [password]
+
 
 # This is the address of the router
 FRITZIP=http://fritz.box

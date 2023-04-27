@@ -19,7 +19,7 @@ def login():
 def authenticate():
     username = request.json["username"]
     password = request.json["password"]
-    conn = sqlite3.connect("example.db")
+    conn = sqlite3.connect("database.db")
     c = conn.cursor()
     c.execute("SELECT * FROM users WHERE username=? AND password=?", (username, password))
     user = c.fetchone()
@@ -58,7 +58,7 @@ def queries():
 
 @app.route("/clients")
 def domains():
-    conn = sqlite3.connect("example.db")
+    conn = sqlite3.connect("database.db")
     c = conn.cursor()
     c.execute("SELECT * FROM domains")
     domains = c.fetchall()
@@ -66,7 +66,7 @@ def domains():
     return render_template("clients.html", domains=domains)
 
 if __name__ == "__main__":
-    conn = sqlite3.connect("example.db")
+    conn = sqlite3.connect("database.db")
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS users
                  (id INTEGER PRIMARY KEY AUTOINCREMENT,

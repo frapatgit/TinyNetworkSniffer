@@ -1,0 +1,31 @@
+
+Github Repository:
+Patrick Frank und Johannes Reusch
+Tiny Network Sniffer
+https://github.com/frapatgit/TinyNetworkSniffer
+
+Cheatsheet 
+
+Reposittory kopieren:
+git clone 'https://github.com/frapatgit/TinyNetworkSniffer.git'
+
+Commit Verlauf anzeigen:
+git log
+
+Aktueller (lokaler) Zustand:
+git status
+
+Neuste Version von github beziehen.
+git pull origin
+
+Lokale Änderungen auf github schieben:
+git push origin
+
+Lokale Änderugnen zum Commit vormerken:
+git add <Datei>
+
+(Vorgemerkte)Änderungen in git aufnehmen:
+git commit -m <Commit Nachricht>
+
+Lokale Änderungen mit dem gesicherten Zustand vergleichen:
+git diff <Datei>

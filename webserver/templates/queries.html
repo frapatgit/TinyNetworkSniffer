@@ -2,9 +2,9 @@
 <html>
 <head>
 	<title>Dashboard</title>
-	<link rel="stylesheet" type="text/css" href="../css/home.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/home.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-	<script type="text/javascript" src="../js/home.js"></script>
+	<script type="text/javascript" src="../static/js/home.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -13,9 +13,9 @@
 				<img src="../img/Logoohnetext.png" class="logo">
 			</div>
 			<ul>
-				<li class="active"><a href="#">Dashboard</a></li>
+				<li><a href="home.html">Dashboard</a></li>
 				<li><a href="clients.html">Clients</a></li>
-				<li><a href="queries.html">Queries</a></li>
+				<li class="active"><a href="#">Queries</a></li>
 				<li><a href="settings.html">Settings</a></li>
 				<li><a href="#">Tools</a></li>
 				<li><a href="#">Donate</a></li>
@@ -25,49 +25,44 @@
 			<img src="../img/textonly.png" width=25% >
 			<div class="user-info">
 				<p>Welcome, John Doe!</p>
-				<a href="./login.html">Logout</a>
+				<a href="../templates/login.html">Logout</a>
 			</div>
 		</div>
 		<div class="main-content">
 			<div class="dashboard">
 				<div class="dashboard-item">
-					<h2>Top malicious domains</h2>
-                    <h3>(past 24h)</h3>
+					<h2>Recent queries</h2>
 					<table>
 						<thead>
 							<tr>
-								<th>Destination</th>
-								<th>Host</th>
-								<th>Count</th>
+								<th>Hostname</th>
+								<th>Domain</th>
+								<th>Time</th>
+								<th>Virustotal score</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>google.com</td>
 								<td>Smartphone</td>
-                                <td>458</td>
+								<td>Totallynotavirus.info</td>
+								<td>2022-08-14T02:34:56</td>
+								<td>28/72</td>
 							</tr>
 							<tr>
-								<td>177.149.1.21</td>
 								<td>SmartTV</td>
-								<td>59</td>
+								<td>apple.com</td>
+								<td>2022-08-14T02:34:56</td>
+								<td>1/88</td>
 							</tr>
 							<tr>
-								<td>microsoft.com</td>
 								<td>PC</td>
-								<td>789</td>
+								<td>hs-albsig.de</td>
+								<td>2022-08-14T02:34:56</td>
+								<td>0/92</td>
 							</tr>
 						</tbody>
 					</table>
-				</div>
-                <div class="dashboard-item">
-                    <h2>Requests over time </h2>
-                    <canvas id="myChart"></canvas>
-                </div>
-                <div class="dashboard-item">
-                    <h2>Most malicious requests by client</h2>
-                    <canvas id="myChart2"></canvas>
-                </div>              
+				</div>           
 			</div>
 		</div>
 	</div>

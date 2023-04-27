@@ -6,7 +6,7 @@ function validate() {
     //alert("success")
     //alert("Login erfolgreich!");
     // Navigiere zu einer anderen Seite
-    window.location.replace("../html/home.html");
+    window.location.replace("../templates/home.html");
   } 
   else {
     alert("Benutzername oder Passwort falsch.");

@@ -2,12 +2,12 @@ from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
 
 app = Flask(__name__)
-app.secret_key = "my_secret_key"
+app.secret_key = "?rtl/S&O=@873@q(o!1t"
 
 @app.route("/")
 def index():
     if "username" in session:
-        return render_template("index.html")
+        return render_template("login.html")
     else:
         return redirect(url_for("login"))
 

@@ -2,26 +2,13 @@
 <html>
 <head>
 	<title>Dashboard</title>
-	<link rel="stylesheet" type="text/css" href="../css/clients.css">
+	<link rel="stylesheet" type="text/css" href="../static/css.clients.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 	<script type="text/javascript" src="../js/home.js"></script>
+	<script type="text/javascript" src="../static/js/clients.js"></script>
 </head>
 <body>
-	<div class="container">
-		<div class="sidebar">
-			<div class="logo">
-				<img src="../img/Logoohnetext.png" class="logo">
-			</div>
-			<ul>
-				<li><a href="home.html">Dashboard</a></li>
-				<li class="active"><a href="#">Clients</a></li>
-				<li><a href="queries.html">Queries</a></li>
-				<li><a href="settings.html">Settings</a></li>
-				<li><a href="#">Tools</a></li>
-				<li><a href="#">Donate</a></li>
-			</ul>
-		</div>
-		<div class="header">
+	<div class="header">
 			<img src="../img/textonly.png" width=25% >
 			<div class="user-info">
 				<p>Welcome, John Doe!</p>
@@ -29,6 +16,22 @@
 			</div>
 		</div>
 		<div class="main-content">
+			
+				<div class="sidebar">
+				<div class="logo">
+					<img src="../img/Logoohnetext.png" class="logo">
+				</div>
+				<div class="toggle-btn">&#9776;</div>
+				<ul>
+					<li><a href="home.html">Dashboard</a></li>
+					<li class="active"><a href="#">Clients</a></li>
+					<li><a href="queries.html">Queries</a></li>
+					<li><a href="settings.html">Settings</a></li>
+					<li><a href="#">Tools</a></li>
+					<li><a href="#">Donate</a></li>
+				</ul>
+			</div>
+		</div>
 			<div class="dashboard">
 				<div style="max-width: 600px;" class="dashboard-item" style="text-align: center;">
 					<h2 style="text-align: center;">Active Clients</h2>

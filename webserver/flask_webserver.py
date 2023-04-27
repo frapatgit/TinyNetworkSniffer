@@ -76,8 +76,8 @@ if __name__ == "__main__":
                  (id INTEGER PRIMARY KEY AUTOINCREMENT,
                  ip_address TEXT NOT NULL,
                  domain_name TEXT NOT NULL);''')
-    c.execute("INSERT INTO users (username, password) VALUES (?, ?)", ("admin", "password"))
-    c.execute("INSERT INTO domains (ip_address, domain_name) VALUES (?, ?)", ("192.168.1.1", "example.com"))
+    #c.execute("INSERT INTO users (username, password) VALUES (?, ?)", ("admin", "password"))
+    #c.execute("INSERT INTO domains (ip_address, domain_name) VALUES (?, ?)", ("192.168.1.1", "example.com"))
     conn.commit()
     conn.close()
     app.run(debug=True)

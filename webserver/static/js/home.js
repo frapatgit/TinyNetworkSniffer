@@ -1,6 +1,13 @@
 function logout() {
-    // Fügen Sie hier den Code ein, um den Benutzer auszuloggen und auf die Login-Seite weiterzuleiten
-    window.location.replace("login");
+    // Hier verweist du auf die Route /logout und sendest eine GET-Anfrage
+    fetch('/logout', {
+        method: 'GET'
+    })
+        .then(response => {
+        // Hier wird der Benutzer zurück zur Login-Seite weitergeleitet
+        window.location.href = 'login';
+        })
+        .catch(error => console.error('Error:', error));
   }
 
 function createCharts() {

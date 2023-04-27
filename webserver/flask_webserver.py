@@ -27,7 +27,6 @@ def authenticate():
     if user:
         session["username"] = username
         response = make_response("OK", 200)
-        response.set_cookie("session", session["username"])
         return response
     else:
         return "Invalid username or password.", 401

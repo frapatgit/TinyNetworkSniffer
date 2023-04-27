@@ -1,7 +1,7 @@
 import sqlite3
 import re
 
-conn = sqlite3.connect('database.db')
+conn = sqlite3.connect('../webserver/database.db')
 c = conn.cursor()
 
 # Datei öffnen und Liste der Targets auslesen

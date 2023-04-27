@@ -5,7 +5,7 @@ conn = sqlite3.connect('database.db')
 c = conn.cursor()
 
 # Datei öffnen und Liste der Targets auslesen
-with open('../sh/targets.txt') as f:
+with open('targets.txt') as f:
     target_list = f.read().splitlines()
 
 # Filter IP from domains

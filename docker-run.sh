@@ -1,0 +1,1 @@
+docker run -d -v .sh/:/shared myimage

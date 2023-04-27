@@ -1,3 +1,13 @@
-FROM httpd:2.4
+FROM python:3.9-slim-buster
 
-COPY ./Webserver
+WORKDIR /app
+
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
+COPY webserver /webserver
+
+# Einrichten des Shared Folders
+VOLUME /shared
+
+CMD ["python", "flask_webserver.py"]

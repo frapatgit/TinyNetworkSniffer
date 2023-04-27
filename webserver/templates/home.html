@@ -2,30 +2,30 @@
 <html>
 <head>
 	<title>Dashboard</title>
-	<link rel="stylesheet" type="text/css" href="../css/home.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/home.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-	<script type="text/javascript" src="../js/home.js"></script>
+	<script type="text/javascript" src="../static/js/home.js"></script>
 </head>
 <body>
 	<div class="container">
 		<div class="sidebar">
 			<div class="logo">
-				<img src="../img/Logoohnetext.png" class="logo">
+				<img src="../static/img/Logoohnetext.png" class="logo">
 			</div>
 			<ul>
 				<li class="active"><a href="#">Dashboard</a></li>
-				<li><a href="clients.html">Clients</a></li>
-				<li><a href="queries.html">Queries</a></li>
-				<li><a href="settings.html">Settings</a></li>
+				<li><a href="clients">Clients</a></li>
+				<li><a href="queries">Queries</a></li>
+				<li><a href="settings">Settings</a></li>
 				<li><a href="#">Tools</a></li>
 				<li><a href="#">Donate</a></li>
 			</ul>
 		</div>
 		<div class="header">
-			<img src="../img/textonly.png" width=25% >
+			<img src="../static/img/textonly.png" width=25% >
 			<div class="user-info">
 				<p>Welcome, John Doe!</p>
-				<a href="./login.html">Logout</a>
+				<a class="loggoutbtn" onclick="logout()">Logout</a>
 			</div>
 		</div>
 		<div class="main-content">

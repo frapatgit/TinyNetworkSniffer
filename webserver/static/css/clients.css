@@ -12,6 +12,7 @@
   
   /* Sidebar-Styles */
   .sidebar {
+    
     background-color: #000000;
     color: #fff;
     height: 100%;
@@ -27,6 +28,40 @@
     left: 200px; /* Hier setzen Sie den Abstand zum linken Rand */
   }
   
+  .sidebar-container {
+    position: flex;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #000000;
+    color: #fff;
+    transition: all 0.3s ease-out;
+  }
+  
+  .toggle-btn {
+    position: fixed;
+    top: 20px;
+    left: 200px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+    display: none;
+  }
+  @media screen and (max-width: 768px) {
+    .sidebar-container {
+      transform: translateX(-200px);
+    }
+  
+    .toggle-btn {
+      display: block;
+    }
+  
+    .sidebar.active {
+      transform: translateX(0);
+    }
+  }
+
   /* Beispiel-Menüoption */
   .sidebar li {
     padding: 10px;
@@ -83,9 +118,9 @@
       color: #fff;
       padding: 0px;
       flex-grow: 1;
-    margin-top: 20px;
+      margin-top: 20px;
       margin-left: 200px;
-    margin-right: 100px;
+      margin-right: 100px;
   }
   
   .header img {
@@ -128,6 +163,8 @@
     background-color: #bebebe;
     border: 1px solid #ccc;
     border-radius: 4px;
+    display: block;
+    overflow: scroll;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     margin-bottom: 20px;
     padding: 20px;

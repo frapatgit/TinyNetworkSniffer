@@ -1,7 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
+import ssl
 
 app = Flask(__name__)
+#need to generate cert and key first
+#context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+#context.load_cert_chain('cert.pem', 'key.pem')
 app.secret_key = "?rtl/S&O=@873@q(o!1t"
 
 @app.route("/")

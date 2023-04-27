@@ -74,10 +74,13 @@ if __name__ == "__main__":
                  password TEXT NOT NULL);''')
     c.execute('''CREATE TABLE IF NOT EXISTS domains
                  (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                 ip_address TEXT NOT NULL,
                  domain_name TEXT NOT NULL);''')
+    c.execute('''CREATE TABLE IF NOT EXISTS ip_address
+                 (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                 ip_address TEXT NOT NULL);''')
     #c.execute("INSERT INTO users (username, password) VALUES (?, ?)", ("admin", "password"))
-    #c.execute("INSERT INTO domains (ip_address, domain_name) VALUES (?, ?)", ("192.168.1.1", "example.com"))
+    #c.execute("INSERT INTO domains (domain_name) VALUES (?)", ("example.com",)) # Hier muss ein Tupel mit einem Element übergeben werden, um einen Fehler zu vermeiden.
+    #c.execute("INSERT INTO ip_address (ip_address) VALUES (?)", ("192.168.10.1",)) # Hier muss ebenfalls ein Tupel mit einem Element übergeben werden.
     conn.commit()
     conn.close()
     app.run(debug=True)

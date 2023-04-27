@@ -3,9 +3,7 @@ import sqlite3
 from OpenSSL import SSL
 
 app = Flask(__name__)
-#need to generate cert and key first
-#context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
-#context.load_cert_chain('cert.pem', 'key.pem')
+
 app.secret_key = "?rtl/S&O=@873@q(o!1t"
 
 @app.route("/")
@@ -86,4 +84,4 @@ if __name__ == "__main__":
 
     conn.commit()
     conn.close()
-    app.run('0.0.0.0', port=4433, ssl_context=('cert.pem', 'key.pem'))
+    app.run('0.0.0.0', port=5000, ssl_context=('cert.pem', 'key.pem'))

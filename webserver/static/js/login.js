@@ -1,14 +1,17 @@
-function validate() {
+function login() {
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
-  
-  if (username == "user" && password == "pw") {
-    //alert("success")
-    //alert("Login erfolgreich!");
-    // Navigiere zu einer anderen Seite
-    window.location.replace("../templates/home.html");
-  } 
-  else {
-    alert("Benutzername oder Passwort falsch.");
-  }
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "/authenticate", true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+          window.location.href = "/home";
+      } else if (xhr.readyState === XMLHttpRequest.DONE && xhr.status !== 200) {
+          alert("Invalid username or password.");
+      }
+  };
+  var data = JSON.stringify({"username": username, "password": password});
+  xhr.send(data);
 }

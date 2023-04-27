@@ -1,3 +1,8 @@
+function logout() {
+    // Fügen Sie hier den Code ein, um den Benutzer auszuloggen und auf die Login-Seite weiterzuleiten
+    window.location.replace("login");
+  }
+
 function createCharts() {
     // Daten für den ersten Chart
     var data1 = {

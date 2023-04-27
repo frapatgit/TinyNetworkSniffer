@@ -82,9 +82,8 @@ if __name__ == "__main__":
     c.execute('''CREATE TABLE IF NOT EXISTS ip_address
                  (id INTEGER PRIMARY KEY AUTOINCREMENT,
                  ip_address TEXT NOT NULL);''')
-    #c.execute("INSERT INTO users (username, password) VALUES (?, ?)", ("admin", "password"))
-    #c.execute("INSERT INTO domains (domain_name) VALUES (?)", ("example.com",)) # Hier muss ein Tupel mit einem Element übergeben werden, um einen Fehler zu vermeiden.
-    #c.execute("INSERT INTO ip_address (ip_address) VALUES (?)", ("192.168.10.1",)) # Hier muss ebenfalls ein Tupel mit einem Element übergeben werden.
+
+
     conn.commit()
     conn.close()
     app.run(debug=True)

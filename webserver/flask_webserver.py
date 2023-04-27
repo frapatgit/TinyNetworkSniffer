@@ -41,9 +41,14 @@ def logout():
 @app.route("/home")
 def home():
     if "username" in session:
-        return render_template("home.html")
+        conn = sqlite3.connect('database.db')
+        c = conn.cursor()
+        c.execute('SELECT domain_name, COUNT(*) FROM domains GROUP BY domain_name ORDER BY COUNT(*) DESC LIMIT 10')
+        domains = c.fetchall()
+        conn.close()
+        return render_template('home.html', domains=domains)
     else:
-        return redirect(url_for("home"))
+        return redirect(url_for("login"))
 
 @app.route("/settings")
 def settings():

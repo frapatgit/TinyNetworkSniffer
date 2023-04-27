@@ -36,30 +36,22 @@
                     <h3>(past 24h)</h3>
 					<table>
 						<thead>
-							<tr>
-								<th>Destination</th>
-								<th>Host</th>
-								<th>Count</th>
-							</tr>
+						  <tr>
+							<th>Destination</th>
+							<th>Host</th>
+							<th>Count</th>
+						  </tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>google.com</td>
-								<td>Smartphone</td>
-                                <td>458</td>
-							</tr>
-							<tr>
-								<td>177.149.1.21</td>
-								<td>SmartTV</td>
-								<td>59</td>
-							</tr>
-							<tr>
-								<td>microsoft.com</td>
-								<td>PC</td>
-								<td>789</td>
-							</tr>
+						  {% for domain in domains %}
+						  <tr>
+							<td>{{ domain[0] }}</td>
+							<td>Unknown</td>
+							<td>{{ domain[1] }}</td>
+						  </tr>
+						  {% endfor %}
 						</tbody>
-					</table>
+					  </table>
 				</div>
                 <div class="dashboard-item">
                     <h2>Requests over time </h2>

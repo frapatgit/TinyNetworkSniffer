@@ -1,9 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, make_response
 import sqlite3
-from OpenSSL import SSL
 
 app = Flask(__name__)
-
 app.secret_key = "?rtl/S&O=@873@q(o!1t"
 
 @app.route("/")
@@ -28,14 +26,18 @@ def authenticate():
     conn.close()
     if user:
         session["username"] = username
-        return "OK", 200
+        response = make_response("OK", 200)
+        response.set_cookie("session", session["username"])
+        return response
     else:
         return "Invalid username or password.", 401
 
 @app.route("/logout")
 def logout():
     session.pop("username", None)
-    return redirect(url_for("login"))
+    response = make_response(redirect(url_for("login")))
+    response.set_cookie("session", "", expires=0)
+    return response
 
 @app.route("/home")
 def home():
@@ -84,4 +86,4 @@ if __name__ == "__main__":
 
     conn.commit()
     conn.close()
-    app.run('0.0.0.0', port=5000, ssl_context=('cert.pem', 'key.pem'))
+    app.run(debug=True, port=5000)

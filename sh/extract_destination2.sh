@@ -1,5 +1,15 @@
 #!/bin/bash
 
+## Data in targets.txt has the following format:
+##Packet1{
+#Timestamp: "Timestamp",
+#SourceIP:"SourceIP",
+#DestinationIP:"DestinationIP",
+#DNSQuery:"DNSQuery",
+#TotalCount:"Count"
+#}
+##
+
 dir="./captures"
 
 # Schleife durch die Dateien
@@ -27,11 +37,23 @@ domain_output="./targets.txt"
 filter="(ip or icmp or tcp or udp) and not arp"
 
 # Mit tshark alle Quell-/Ziel-IP-Adressen und Domains extrahieren
-tshark -r "$pcap_file" -T fields -e frame.time -e ip.src -e ip.dst -e http.host -e dns.qry.name -Y "$filter" | awk '{ if ($2 ~ /^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$/ && $3 ~ /^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$/) print $1";"$2";"$3; if ($4 != "") print $1";"$2";"$4; if ($5 != "") print $1";"$2";"$5 }' | sort | uniq >> "$domain_output"
+tshark -r "$pcap_file" -T fields -E separator=\; -e frame.time_epoch -e ip.src -e ip.dst -e http.host -e dns.qry.name -Y "$filter" | awk -F ";" '{
+    if ($2 ~ /^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$/) {
+        src=$2;
+        dst=$3
+    } else {
+        src=$3;
+        dst=$4
+    };
+    if ($5 != "") {
+        printf("{\"Timestamp\":\"%s\",\"SourceIP\":\"%s\",\"DestinationIP\":\"%s\",\"DNSQuery\":\"%s\",\"TotalCount\":\"1\"}\n", strftime("%Y-%m-%d %H:%M:%S", $1), src, dst, $5)
+    } else {
+        printf("{\"Timestamp\":\"%s\",\"SourceIP\":\"%s\",\"DestinationIP\":\"%s\",\"DNSQuery\":\"%s\",\"TotalCount\":\"1\"}\n", strftime("%Y-%m-%d %H:%M:%S", $1), src, dst, $6)
+    }
+}' >> "$domain_output"
 
 # Nur Domains extrahieren
-tshark -r "$pcap_file" -T fields -e frame.time -e dns.qry.name -Y "$filter" | awk '{print $1";"";"";"$2}' | sort | uniq >> "$domain_output"
-
+tshark -r "$pcap_file" -T fields -e dns.qry.name -Y "$filter" | awk '{printf("{\"Timestamp\":\"\",\"SourceIP\":\"\",\"DestinationIP\":\"\",\"DNSQuery\":\"%s\",\"TotalCount\":\"1\"}\n", $1)}' >> "$domain_output"
 
 # Ausgabe-Dateien anzeigen
 echo "----------------------------------"
@@ -52,9 +74,6 @@ fi
 sort -u -o "$input_file" "$input_file"
 
 echo "### Duplikate erfolgreich aus $input_file entfernt."
-
-
-file_to_delete=$pcap_file
 
 # Fehlerbehandlung - Prüfen, ob die Datei existiert
 if [ -e "$file_to_delete" ]; then

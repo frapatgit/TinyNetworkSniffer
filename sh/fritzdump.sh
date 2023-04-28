@@ -11,8 +11,9 @@ FRITZIP=http://fritz.box
 source config.ini
 
 # Use configuration parameters
-echo "FRITZUSER: $username"
-echo "FRITZPWD: $password"
+FRITZUSER=$username
+FRITZPWD=$password
+
 
 # This is the WAN interface
 IFACE="2-1"

@@ -7,6 +7,13 @@
 # This is the address of the router
 FRITZIP=http://fritz.box
 
+# Load configuration file
+source config.ini
+
+# Use configuration parameters
+echo "FRITZUSER: $username"
+echo "FRITZPWD: $password"
+
 # This is the WAN interface
 IFACE="2-1"
 

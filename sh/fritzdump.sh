@@ -18,8 +18,8 @@ echo "FRITZPWD: $password"
 IFACE="2-1"
 
 # If you use password-only authentication use 'dslf-config' as username.
-FRITZUSER=$1
-FRITZPWD=$2
+#FRITZUSER=$1
+#FRITZPWD=$2
 
 SIDFILE="/tmp/fritz.sid"
 

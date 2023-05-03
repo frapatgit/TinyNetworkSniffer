@@ -1,0 +1,6 @@
+
+
+./sh/targets.txt
+./sh/config.ini
+./sh/captures/*
+./sh/captures/.gitkeep

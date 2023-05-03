@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for, session, make_response
+from flask import Flask, render_template, request, redirect, url_for, session, make_response, jsonify
 import sqlite3
+import requests
 
 app = Flask(__name__)
 app.secret_key = "?rtl/S&O=@873@q(o!1t"
@@ -72,6 +73,22 @@ def domains():
     domains = c.fetchall()
     conn.close()
     return render_template("clients.html", domains=domains)
+    
+@app.route('/check-url', methods=['POST'])
+def check_url():
+
+    api_url = f'https://www.virustotal.com/api/v3/urls'
+api_key = '<your-api-key>'
+    payload = f'url={request.json["url"]}'
+    app.logger.info(payload)
+    headers = {
+        "accept": "application/json",
+        "x-apikey": api_key,
+        "content-type": "application/x-www-form-urlencoded"
+    }
+    response = requests.post(api_url, data=payload, headers=headers)
+    app.logger.info(response.status_code)
+    return jsonify(response.json())
 
 if __name__ == "__main__":
     conn = sqlite3.connect("database.db")
@@ -90,4 +107,4 @@ if __name__ == "__main__":
 
     conn.commit()
     conn.close()
-    app.run(debug=True, port=5000)
+    app.run("0.0.0.0", debug=True, port=5000)

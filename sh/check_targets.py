@@ -1,11 +1,15 @@
 import requests
-import configparser
-import json
+
 
 # API Key einlesen
-config = configparser.ConfigParser()
-config.read('config.ini')
-API = config.get('virustotal', 'API')[1:-1]
+config_file = open('config.ini')
+for line in config_file:
+    line = line.strip()
+    if line and line.startswith('API') :
+        conf=line
+config_file.close()
+API= conf[5:-1]
+print(API)
 #set vt api v3
 url = "https://www.virustotal.com/api/v3/urls"
 

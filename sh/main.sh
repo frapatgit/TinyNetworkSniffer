@@ -25,4 +25,5 @@ while true; do
     # start extract_destinations.sh and sync_db.py
     bash extract_destination.sh &
     python sync_db.py &
+    python check_targets.py &
 done

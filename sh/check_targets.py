@@ -17,7 +17,7 @@ url = "https://www.virustotal.com/api/v3/urls"
 
 #loop through database here; adjust target variable
 #send post to receive id
-target = "google.de"
+target = "android-cdn-api.fitbit.com"
 payload = "url="+target
 
 headers = {

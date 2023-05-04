@@ -44,7 +44,7 @@ def home():
     if "username" in session:
         conn = sqlite3.connect('database.db')
         c = conn.cursor()
-        c.execute('SELECT domain_name, COUNT(*) FROM domains GROUP BY domain_name ORDER BY COUNT(*) DESC LIMIT 10')
+        c.execute('SELECT destination_ip, COUNT(*) FROM dns_queries GROUP BY destination_ip ORDER BY COUNT(*) DESC LIMIT 10')
         domains = c.fetchall()
         conn.close()
         return render_template('home.html', domains=domains)
@@ -61,6 +61,11 @@ def settings():
 @app.route("/queries")
 def queries():
     if "username" in session:
+        conn = sqlite3.connect('database.db')
+        c = conn.cursor()
+        c.execute("SELECT * FROM dns_requests WHERE DestinationIP='router' AND SourceIP!=''")
+        domains = c.fetchall()
+        conn.close()
         return render_template("queries.html")
     else:
         return redirect(url_for("queries"))
@@ -69,7 +74,7 @@ def queries():
 def domains():
     conn = sqlite3.connect("database.db")
     c = conn.cursor()
-    c.execute("SELECT * FROM domains")
+    c.execute("SELECT * FROM dns_queries")
     domains = c.fetchall()
     conn.close()
     return render_template("clients.html", domains=domains)
@@ -97,13 +102,14 @@ if __name__ == "__main__":
                  (id INTEGER PRIMARY KEY AUTOINCREMENT,
                  username TEXT NOT NULL,
                  password TEXT NOT NULL);''')
-    c.execute('''CREATE TABLE IF NOT EXISTS domains
-                 (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                 domain_name TEXT NOT NULL);''')
-    c.execute('''CREATE TABLE IF NOT EXISTS ip_address
-                 (id INTEGER PRIMARY KEY AUTOINCREMENT,
-                 ip_address TEXT NOT NULL);''')
-
+    c.execute('''CREATE TABLE IF NOT EXISTS dns_queries
+                    (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    timestamp TEXT,
+                    source_ip TEXT,
+                    destination_ip TEXT,
+                    protocol TEXT,
+                    dns_query TEXT,
+                    vt_score TEXT);''')
 
     conn.commit()
     conn.close()

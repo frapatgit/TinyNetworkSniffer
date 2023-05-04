@@ -39,14 +39,14 @@
 						  <tr>
 							<th>Destination</th>
 							<th>Host</th>
-							<th>Count</th>
+							<th>Protocol</th>
 						  </tr>
 						</thead>
 						<tbody>
 						  {% for domain in domains %}
 						  <tr>
 							<td>{{ domain[0] }}</td>
-							<td>Unknown</td>
+							<td>-</td>
 							<td>{{ domain[1] }}</td>
 						  </tr>
 						  {% endfor %}

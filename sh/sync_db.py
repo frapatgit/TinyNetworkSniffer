@@ -1,41 +1,54 @@
 import sqlite3
-import re
+import json
+import requests
 
+
+# Verbindung zur Datenbank erstellen oder vorhandene Verbindung öffnen
 conn = sqlite3.connect('../webserver/database.db')
-c = conn.cursor()
+# Cursor-Objekt erstellen
+cursor = conn.cursor()
 
-# Datei öffnen und Liste der Targets auslesen
-with open('targets.txt') as f:
-    target_list = f.read().splitlines()
+# Tabelle erstellen, falls sie nicht vorhanden ist
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS dns_queries
+    (id INTEGER PRIMARY KEY AUTOINCREMENT,
+     timestamp TEXT,
+     source_ip TEXT,
+     destination_ip TEXT,
+     protocol TEXT,
+     dns_query TEXT,
+     vt_score TEXT)
+''')
 
-# Filter IP from domains
-domains = []
-ips = []
+# Host-IP-Adresse festlegen
+host = requests.get('https://ifconfig.me/ip').text.strip()
 
-ips = list(filter(lambda x: re.match(r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$", x), target_list))
-domains = target_list
-for i in ips:
-    if i in domains:
-        domains.remove(i)
-
-# daten in die datenbank schreiben
-# ips in datenbank schreiben
-for ip in ips:
-    # Prüfen, ob die IP-Adresse bereits in der Datenbank existiert
-    query = "SELECT ip_address FROM ip_address WHERE ip_address = ?"
-    existing_ip = c.execute(query, (ip,)).fetchone()
-    # Wenn die IP-Adresse noch nicht in der Datenbank existiert, füge sie hinzu
-    if existing_ip is None:
-        c.execute("INSERT INTO ip_address (ip_address) VALUES (?)", (ip,))
-
-#domains in datenbank schreiben
-for domain in domains:
-    # Prüfen, ob die domain bereits in der Datenbank existiert
-    query = "SELECT domain_name FROM domains WHERE domain_name = ?"
-    existing_domain = c.execute(query, (domain,)).fetchone()
-    # Wenn die domain noch nicht in der Datenbank existiert, füge sie hinzu
-    if existing_domain is None:
-        c.execute("INSERT INTO domains (domain_name) VALUES (?)", (domain,))
+# Datei mit den DNS-Abfragen öffnen und zeilenweise auslesen
+with open('targets.txt', 'r') as f:
+    for line in f:
+        # JSON-Daten aus der Zeile extrahieren
+        data = json.loads(line)
         
+        # Source-IP und Destination-IP auslesen
+        src_ip = data['SourceIP']
+        dst_ip = data['DestinationIP']
+        
+        # Überprüfen, ob Source-IP und Destination-IP leer sind
+        if src_ip == '' or dst_ip == '':
+            continue
+        
+        # Falls eine der IP-Adressen gleich der Host-IP-Adresse ist, 'router' eintragen
+        if src_ip == host:
+            src_ip = 'router'
+        if dst_ip == host:
+            dst_ip = 'router'
+        
+        # Daten in die Datenbank einfügen
+        cursor.execute('INSERT INTO dns_queries (timestamp, source_ip, destination_ip, protocol, dns_query) VALUES (?, ?, ?, ?, ?)',
+                       (data['Timestamp'], src_ip, dst_ip, data['Protocol'], data['DNSQuery']))
+        
+# Änderungen speichern
 conn.commit()
+
+# Verbindung zur Datenbank schließen
 conn.close()

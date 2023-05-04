@@ -26,9 +26,9 @@ function logout() {
           const hostCell = row.insertCell();
           const countCell = row.insertCell();
 
-          destinationCell.innerText = domain.domain_name;
-          hostCell.innerText = "Unknown"; // Hier muss der Host der Domain ermittelt werden
-          countCell.innerText = domain.count;
+          destinationCell.innerText = dns_queries.destination_ip;
+          hostCell.innerText = dns_queries.source_ip; // Hier muss der Host der Domain ermittelt werden
+          countCell.innerText = dns_queries.destination_ip;
         });
       })
       .catch(error => console.error(error));

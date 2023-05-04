@@ -1,124 +1,33 @@
-104.109.250.173
-104.16.87.20
-104.18.3.161
-104.77.33.246
-118.46.42.49
-121.177.245.232
-13.107.21.239
-13.224.189.49
-13.69.109.131
-139.177.230.131
-140.82.113.25
-140.82.114.26
-14.137.137.115
-141.87.109.34
-141.87.115.104
-142.250.185.202
-142.250.186.133
-142.250.186.170
-14.33.60.245
-147.160.191.131
-147.185.239.157
-151.101.10.73
-157.240.252.10
-160.44.194.156
-162.142.125.238
-162.142.125.251
-162.159.128.233
-162.159.133.234
-162.159.136.232
-162.159.136.234
-162.216.150.236
-167.94.146.65
-172.64.106.35
-173.194.76.92
-18.215.87.203
-183.136.225.9
-184.86.103.19
-185.156.73.206
-185.180.143.163
-185.199.111.133
-185.199.111.153
-192.241.200.30
-192.241.238.14
-194.58.88.189
-198.252.206.25
-199.232.189.91
-20.90.152.133
-209.197.3.8
-20.93.28.56
-212.70.149.46
-213.208.138.154
-213.208.138.157
-216.239.36.127
-2.21.22.153
-2.21.22.176
-23.0.174.128
-23.0.174.225
-23.11.206.17
-34.102.155.183
-34.117.237.239
-34.120.195.249
-34.158.0.131
-34.159.202.232
-34.237.73.95
-34.240.108.25
-34.246.22.108
-34.255.220.89
-35.185.114.85
-35.186.224.25
-35.186.224.47
-35.190.80.1
-35.203.210.160
-35.203.211.225
-40.113.103.199
-5.181.80.184
-52.109.89.21
-52.109.89.25
-52.112.120.175
-52.112.190.33
-52.112.238.118
-52.113.199.108
-52.114.225.78
-52.114.251.35
-52.114.251.78
-52.114.251.80
-52.114.74.114
-52.16.104.93
-52.177.138.113
-52.207.181.118
-52.210.194.118
-52.98.243.34
-54.247.68.223
-64.233.167.188
-69.94.67.85
-69.94.67.92
-71.18.26.3
-74.125.133.188
-76.223.92.165
-77.234.45.81
-78.164.42.66
-79.124.62.82
-80.158.16.161
-80.158.37.10
-80.158.38.48
-84.17.52.129
-87.164.219.61
-8.8.4.4
-8.8.8.8
-92.63.197.97
-93.208.8.72
-94.102.61.47
-94.140.14.14
-95.101.111.159
-95.91.252.145
-crl.swisssign.net
-ctldl.windowsupdate.com
-gew4-spclient.spotify.com
-ncc.avast.com
-pam-syncs.ff.avast.com
-r3.o.lencr.org
-spclient.wg.spotify.com
-su.ff.avast.com
-x1.c.lencr.org
-x2.c.lencr.org
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"93.208.5.179","DestinationIP":"34.158.0.131","Protocol":"TCP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"93.208.5.179","DestinationIP":"8.8.8.8","Protocol":"DNS","DNSQuery":"android-cdn-api.fitbit.com"}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"93.208.5.179","DestinationIP":"95.91.252.145","Protocol":"ESP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"","DestinationIP":"","Protocol":"TCP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:03","SourceIP":"","DestinationIP":"","Protocol":"TCP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:03","SourceIP":"","DestinationIP":"","Protocol":"ICMPv6","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"","DestinationIP":"","Protocol":"TCP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"","DestinationIP":"","Protocol":"TCP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"93.208.5.179","DestinationIP":"162.159.137.232","Protocol":"TCP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"93.208.5.179","DestinationIP":"162.159.136.234","Protocol":"TCP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"","DestinationIP":"","Protocol":"TCP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"93.208.5.179","DestinationIP":"34.158.0.131","Protocol":"TCP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"34.158.0.131","DestinationIP":"93.208.5.179","Protocol":"TCP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"93.208.5.179","DestinationIP":"34.158.0.131","Protocol":"TCP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"93.208.5.179","DestinationIP":"8.8.8.8","Protocol":"DNS","DNSQuery":"android-cdn-api.fitbit.com"}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"93.208.5.179","DestinationIP":"8.8.8.8","Protocol":"DNS","DNSQuery":"android-cdn-api.fitbit.com"}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"8.8.8.8","DestinationIP":"93.208.5.179","Protocol":"DNS","DNSQuery":"android-cdn-api.fitbit.com"}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"8.8.8.8","DestinationIP":"93.208.5.179","Protocol":"DNS","DNSQuery":"android-cdn-api.fitbit.com"}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"93.208.5.179","DestinationIP":"104.16.66.50","Protocol":"TCP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"104.16.66.50","DestinationIP":"93.208.5.179","Protocol":"TCP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"93.208.5.179","DestinationIP":"104.16.66.50","Protocol":"TCP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"93.208.5.179","DestinationIP":"104.16.66.50","Protocol":"TLSv1","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"104.16.66.50","DestinationIP":"93.208.5.179","Protocol":"TCP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"104.16.66.50","DestinationIP":"93.208.5.179","Protocol":"TLSv1.3","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"104.16.66.50","DestinationIP":"93.208.5.179","Protocol":"TCP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"104.16.66.50","DestinationIP":"93.208.5.179","Protocol":"TCP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"104.16.66.50","DestinationIP":"93.208.5.179","Protocol":"TLSv1.3","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"93.208.5.179","DestinationIP":"104.16.66.50","Protocol":"TCP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"93.208.5.179","DestinationIP":"104.16.66.50","Protocol":"TLSv1.3","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"104.16.66.50","DestinationIP":"93.208.5.179","Protocol":"TLSv1.3","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"93.208.5.179","DestinationIP":"95.91.252.145","Protocol":"ESP","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"93.208.5.179","DestinationIP":"104.16.66.50","Protocol":"TLSv1.3","DNSQuery":""}
+{"Timestamp":"2023-05-04 20:59:04","SourceIP":"104.16.66.50","DestinationIP":"93.208.5.179","Protocol":"TLSv1.3","DNSQuery":""}

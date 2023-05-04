@@ -40,11 +40,10 @@ headers = {
 }
 response = requests.get(url2, headers=headers)
 data = response.json()
+#extract vt scores
 harmlessscore = data["data"]["attributes"]["last_analysis_stats"]["harmless"]
 maliciousscore = data["data"]["attributes"]["last_analysis_stats"]["malicious"]
 suspiciousscore = data["data"]["attributes"]["last_analysis_stats"]["suspicious"]
 undetectedscore = data["data"]["attributes"]["last_analysis_stats"]["undetected"]
 print("harmlessscore: " + str(harmlessscore), "maliciousscore: "+ str(maliciousscore),"suspiciousscore: "+ str(suspiciousscore),"undetectedscore: "+ str(undetectedscore))
 
-
-#extract vt scores

@@ -1,12 +1,14 @@
 #!/bin/bash
 
+# to get own public IP:
+# wget -qO- ifconfig.me
+
 ## Data in targets.txt has the following format:
 ##Packet1{
 #Timestamp: "Timestamp",
 #SourceIP:"SourceIP",
 #DestinationIP:"DestinationIP",
 #DNSQuery:"DNSQuery",
-#TotalCount:"Count"
 #}
 ##
 
@@ -37,7 +39,7 @@ domain_output="./targets.txt"
 filter="(ip or icmp or tcp or udp) and not arp"
 
 # Mit tshark alle Quell-/Ziel-IP-Adressen und Domains extrahieren
-tshark -r "$pcap_file" -T fields -E separator=\; -e frame.time_epoch -e ip.src -e ip.dst -e http.host -e dns.qry.name -Y "$filter" | awk -F ";" '{
+tshark -r "$pcap_file" -T fields -E separator=\; -e frame.time_epoch -e ip.src -e ip.dst -e http.host -e dns.qry.name -e tcp.srcport -Y "$filter" | awk -F ";" '{
     if ($2 ~ /^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$/) {
         src=$2;
         dst=$3
@@ -45,15 +47,16 @@ tshark -r "$pcap_file" -T fields -E separator=\; -e frame.time_epoch -e ip.src -
         src=$3;
         dst=$4
     };
-    if ($5 != "") {
-        printf("{\"Timestamp\":\"%s\",\"SourceIP\":\"%s\",\"DestinationIP\":\"%s\",\"DNSQuery\":\"%s\",\"TotalCount\":\"1\"}\n", strftime("%Y-%m-%d %H:%M:%S", $1), src, dst, $5)
+    if ($5 != "" && $6 !~ /^[0-9]+$/) {
+        printf("{\"Timestamp\":\"%s\",\"SourceIP\":\"%s\",\"DestinationIP\":\"%s\",\"Port\":\"%s\",\"DNSQuery\":\"%s\",\"TotalCount\":\"1\"}\n", strftime("%Y-%m-%d %H:%M:%S", $1), src, dst, $7, $5)
     } else {
-        printf("{\"Timestamp\":\"%s\",\"SourceIP\":\"%s\",\"DestinationIP\":\"%s\",\"DNSQuery\":\"%s\",\"TotalCount\":\"1\"}\n", strftime("%Y-%m-%d %H:%M:%S", $1), src, dst, $6)
+        printf("{\"Timestamp\":\"%s\",\"SourceIP\":\"%s\",\"DestinationIP\":\"%s\",\"Port\":\"%s\",\"DNSQuery\":\"%s\",\"TotalCount\":\"1\"}\n", strftime("%Y-%m-%d %H:%M:%S", $1), src, dst, $7, $6)
     }
 }' >> "$domain_output"
 
+
 # Nur Domains extrahieren
-tshark -r "$pcap_file" -T fields -e dns.qry.name -Y "$filter" | awk '{printf("{\"Timestamp\":\"\",\"SourceIP\":\"\",\"DestinationIP\":\"\",\"DNSQuery\":\"%s\",\"TotalCount\":\"1\"}\n", $1)}' >> "$domain_output"
+#tshark -r "$pcap_file" -T fields -e dns.qry.name -Y "$filter" | awk '{printf("{\"Timestamp\":\"\",\"SourceIP\":\"\",\"DestinationIP\":\"\",\"DNSQuery\":\"%s\",\"TotalCount\":\"1\"}\n", $1)}' >> "$domain_output"
 
 # Ausgabe-Dateien anzeigen
 echo "----------------------------------"

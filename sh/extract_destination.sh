@@ -37,7 +37,7 @@ domain_output="./targets.txt"
 filter="(ip or icmp or tcp or udp) and not arp"
 
 # Mit tshark alle Quell-/Ziel-IP-Adressen und Domains extrahieren
-tshark -r "$pcap_file" -T fields -E separator=\; -e frame.time_epoch -e ip.src -e ip.dst -e http.host -e dns.qry.name -Y "$filter" | awk -F ";" '{
+tshark -r "$pcap_file" -T fields -E separator=\; -e frame.time_epoch -e ip.src -e ip.dst -e http.host -e dns.qry.name -e _ws.col.Protocol -Y "$filter" | awk -F ";" '{
     if ($2 ~ /^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$/) {
         src=$2;
         dst=$3
@@ -46,9 +46,9 @@ tshark -r "$pcap_file" -T fields -E separator=\; -e frame.time_epoch -e ip.src -
         dst=$4
     };
     if ($5 != "") {
-        printf("{\"Timestamp\":\"%s\",\"SourceIP\":\"%s\",\"DestinationIP\":\"%s\",\"DNSQuery\":\"%s\"}\n", strftime("%Y-%m-%d %H:%M:%S", $1), src, dst, $5)
+        printf("{\"Timestamp\":\"%s\",\"SourceIP\":\"%s\",\"DestinationIP\":\"%s\",\"Protocol\":\"%s\",\"DNSQuery\":\"%s\"}\n", strftime("%Y-%m-%d %H:%M:%S", $1), src, dst, $6, $5)
     } else {
-        printf("{\"Timestamp\":\"%s\",\"SourceIP\":\"%s\",\"DestinationIP\":\"%s\",\"DNSQuery\":\"%s\"}\n", strftime("%Y-%m-%d %H:%M:%S", $1), src, dst, $6)
+        printf("{\"Timestamp\":\"%s\",\"SourceIP\":\"%s\",\"DestinationIP\":\"%s\",\"Protocol\":\"%s\",\"DNSQuery\":\"%s\"}\n", strftime("%Y-%m-%d %H:%M:%S", $1), src, dst, $6, $7)
     }
 }' >> "$domain_output"
 

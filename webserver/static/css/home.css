@@ -15,6 +15,7 @@ body {
   border: none;
   color: white;
   background-color: #4169E1;
+  cursor:pointer;
 }
 .loggoutbtn:hover {
   background-color: black;

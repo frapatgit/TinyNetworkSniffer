@@ -1,4 +1,6 @@
+import sqlite3
 import requests
+import time
 
 
 # API Key einlesen
@@ -9,41 +11,63 @@ for line in config_file:
         conf=line
 config_file.close()
 API= conf[5:-1]
-print(API)
 #set vt api v3
-url = "https://www.virustotal.com/api/v3/urls"
-
 #send post and get requests for urls
 
 #loop through database here; adjust target variable
 #send post to receive id
-target = "android-cdn-api.fitbit.com"
-payload = "url="+target
+def checkurl(target):
+    target = target
+    payload = "url="+target
+    url = "https://www.virustotal.com/api/v3/urls"
+    headers = {
+        "accept": "application/json",
+        "x-apikey": API,
+        "content-type": "application/x-www-form-urlencoded"
+    }
+    response = requests.post(url, data=payload, headers=headers)
+    data = response.json()
+    id_value = data["data"]["id"][2:-11]
+    #send get to receive vt scores
+    url2 = url+"/"+id_value
+    headers = {
+        "accept": "application/json",
+        "x-apikey": API
+    }
+    response = requests.get(url2, headers=headers)
+    data = response.json()
+    #extract vt scores
+    harmlessscore = data["data"]["attributes"]["last_analysis_stats"]["harmless"]
+    maliciousscore = data["data"]["attributes"]["last_analysis_stats"]["malicious"]
+    suspiciousscore = data["data"]["attributes"]["last_analysis_stats"]["suspicious"]
+    undetectedscore = data["data"]["attributes"]["last_analysis_stats"]["undetected"]
+    print("harmlessscore: " + str(harmlessscore), "maliciousscore: "+ str(maliciousscore),"suspiciousscore: "+ str(suspiciousscore),"undetectedscore: "+ str(undetectedscore))
+    vt_scoretotal= str(maliciousscore + suspiciousscore) + "/" + str(harmlessscore + maliciousscore + suspiciousscore)
+    return vt_scoretotal
 
-headers = {
-    "accept": "application/json",
-    "x-apikey": API,
-    "content-type": "application/x-www-form-urlencoded"
-}
+def update_vt_score():
+    table_name = "dns_queries"
+    conn = sqlite3.connect('../webserver/database.db')
+    c = conn.cursor()
 
-response = requests.post(url, data=payload, headers=headers)
-data = response.json()
-id_value = data["data"]["id"][2:-11]
-print(id_value)
+    # Hole alle Einträge aus der Tabelle
+    c.execute(f"SELECT * FROM {table_name}")
+    rows = c.fetchall()
 
-#send get to receive vt scores
-url2 = url+"/"+id_value
-print(url2)
-headers = {
-    "accept": "application/json",
-    "x-apikey": API
-}
-response = requests.get(url2, headers=headers)
-data = response.json()
-#extract vt scores
-harmlessscore = data["data"]["attributes"]["last_analysis_stats"]["harmless"]
-maliciousscore = data["data"]["attributes"]["last_analysis_stats"]["malicious"]
-suspiciousscore = data["data"]["attributes"]["last_analysis_stats"]["suspicious"]
-undetectedscore = data["data"]["attributes"]["last_analysis_stats"]["undetected"]
-print("harmlessscore: " + str(harmlessscore), "maliciousscore: "+ str(maliciousscore),"suspiciousscore: "+ str(suspiciousscore),"undetectedscore: "+ str(undetectedscore))
+    # Für jeden Eintrag
+    for row in rows:
+        dns_query = row[5]
+        vt_score = row[6]
 
+        # Überprüfe, ob das dns_query Feld und das vt_score Feld nicht NULL sind
+        if dns_query != "" and vt_score is None:
+            # Gib das dns_query Feld aus
+            vt_score = checkurl(dns_query)
+            # Update den vt_score für den aktuellen Eintrag
+            current_time = time.strftime('%Y-%m-%d %H:%M:%S')  # Aktueller Zeitstempel
+            c.execute(f"UPDATE {table_name} SET vt_score = ?, vt_lastcheck = ? WHERE id = ?", (vt_score, current_time, row[0]))
+
+    conn.commit()
+    conn.close()
+
+update_vt_score()

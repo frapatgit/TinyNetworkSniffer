@@ -17,7 +17,8 @@ cursor.execute('''
      destination_ip TEXT,
      protocol TEXT,
      dns_query TEXT,
-     vt_score TEXT)
+     vt_score TEXT,
+     vt_lastcheck TEXT)
 ''')
 
 # Host-IP-Adresse festlegen
@@ -43,12 +44,14 @@ with open('targets.txt', 'r') as f:
         if dst_ip == host:
             dst_ip = 'router'
         
-        # Daten in die Datenbank einfügen
-        cursor.execute('INSERT INTO dns_queries (timestamp, source_ip, destination_ip, protocol, dns_query) VALUES (?, ?, ?, ?, ?)',
+        # Überprüfen, ob die Daten bereits in der Datenbank vorhanden sind
+        cursor.execute('SELECT COUNT(*) FROM dns_queries WHERE timestamp=? AND source_ip=? AND destination_ip=? AND protocol=? AND dns_query=?',
                        (data['Timestamp'], src_ip, dst_ip, data['Protocol'], data['DNSQuery']))
-        
+        if cursor.fetchone()[0] == 0:
+            # Daten in die Datenbank einfügen
+            cursor.execute('INSERT INTO dns_queries (timestamp, source_ip, destination_ip, protocol, dns_query) VALUES (?, ?, ?, ?, ?)',
+                           (data['Timestamp'], src_ip, dst_ip, data['Protocol'], data['DNSQuery']))
 # Änderungen speichern
 conn.commit()
-
 # Verbindung zur Datenbank schließen
 conn.close()

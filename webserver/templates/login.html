@@ -12,18 +12,17 @@
       <div class="login-container">
         <img src="../static/img/Logoohnetext.png" alt="Logo" class="logo">
         <h1>Login</h1>
-        <form>
+        <form id="login-form" onsubmit="login(); return false;">
           <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" id="username" required name="username">
+            <input type="text" class="form-control" id="username" required name="username" placeholder="Username">
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" required id="password" name="password">
+            <input type="password" class="form-control" required id="password" name="password" placeholder="Password">
           </div>
           <div class="form-group">
-            <!-- a durch button ersetzen? -->
-            <button type="button" class="btn" onclick="login()">Login</button>
+            <button type="submit" class="btn">Login</button>
           </div>
         </form>
         <div class="forgot-password">

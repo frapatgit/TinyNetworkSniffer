@@ -44,10 +44,10 @@ def home():
     if "username" in session:
         conn = sqlite3.connect('database.db')
         c = conn.cursor()
-        c.execute('SELECT destination_ip, COUNT(*) FROM dns_queries GROUP BY destination_ip ORDER BY COUNT(*) DESC LIMIT 10')
-        domains = c.fetchall()
+        c.execute("SELECT source_ip, destination_ip, vt_score FROM dns_queries LIMIT 10")
+        rows = c.fetchall()
         conn.close()
-        return render_template('home.html', domains=domains)
+        return render_template('home.html', rows=rows)
     else:
         return redirect(url_for("login"))
 
@@ -63,12 +63,12 @@ def queries():
     if "username" in session:
         conn = sqlite3.connect('database.db')
         c = conn.cursor()
-        c.execute("SELECT * FROM dns_requests WHERE DestinationIP='router' AND SourceIP!=''")
-        domains = c.fetchall()
+        c.execute("SELECT source_ip, destination_ip, timestamp, vt_score FROM dns_queries LIMIT 20")
+        rows = c.fetchall()
         conn.close()
-        return render_template("queries.html")
+        return render_template('queries.html', rows=rows)
     else:
-        return redirect(url_for("queries"))
+        return redirect(url_for("login"))
 
 @app.route("/clients")
 def domains():

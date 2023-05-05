@@ -36,32 +36,21 @@
 					<table>
 						<thead>
 							<tr>
-								<th>Hostname</th>
-								<th>Domain</th>
+								<th>Source</th>
+								<th>Destination</th>
 								<th>Time</th>
 								<th>Virustotal score</th>
 							</tr>
 						</thead>
 						<tbody>
+							{% for row in rows %}
 							<tr>
-								<td>Smartphone</td>
-								<td>Totallynotavirus.info</td>
-								<td>2022-08-14T02:34:56</td>
-								<td>28/72</td>
+								<td>{{ row[0] }}</td>
+								<td>{{ row[1] }}</td>
+								<td>{{ row[2] }}</td>
+								<td>{{ row[3] }}</td>
 							</tr>
-							<tr>
-								<td>SmartTV</td>
-								<td>apple.com</td>
-								<td>2022-08-14T02:34:56</td>
-								<td>1/88</td>
-							</tr>
-							<tr>
-								<td>PC</td>
-								<td>hs-albsig.de</td>
-								<td>2022-08-14T02:34:56</td>
-								<td>0/92</td>
-							</tr>
-							<tr>
+							{% endfor %}
 							    <p>Enter a URL to check:</p>
 								<input type="text" id="url-input">
 								<button id="check-button">Check URL</button>

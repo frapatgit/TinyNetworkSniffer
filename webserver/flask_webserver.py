@@ -81,7 +81,17 @@ def home():
 @app.route("/settings")
 def settings():
     if "username" in session:
-        return render_template("settings.html")
+        # Get remaining requests on vt
+        api_url = f"https://www.virustotal.com/api/v3/users/{VT_API_KEY}/overall_quotas"
+        headers = {
+            "x-apikey": VT_API_KEY
+        }
+        response = requests.get(api_url, headers=headers)
+        vt_quota = []
+        vt_quota.append(["api_requests_hourly"] + list(response.json()["data"]["api_requests_hourly"]["user"].values()))
+        vt_quota.append(["api_requests_daily"] + list(response.json()["data"]["api_requests_daily"]["user"].values()))
+        vt_quota.append(["api_requests_monthly"] + list(response.json()["data"]["api_requests_monthly"]["user"].values()))
+        return render_template("settings.html", vt_quota=vt_quota)
     else:
         return redirect(url_for("login"))
 
@@ -95,6 +105,7 @@ def queries():
             "SELECT source_ip, destination_ip, timestamp, vt_score FROM dns_queries LIMIT 20"
         )
         rows = c.fetchall()
+        print(rows)
         conn.close()
         return render_template("queries.html", rows=rows)
     else:
@@ -113,11 +124,13 @@ def domains():
 
 @app.route("/check-url", methods=["POST"])
 def check_url():
-    app.logger.info(request.json["url"])
-    client = vt.Client(VT_API_KEY)
-    response = client.scan_url(request.json["url"])
-    # @todo catch invalid url error and style output
-    return jsonify(response.json())
+    if "username" in session:
+        client = vt.Client(VT_API_KEY)
+        response = client.scan_url(request.json["url"])
+        # @todo catch invalid url error and style output
+        return jsonify(response.json())
+    else:
+        return redirect(url_for("login"))
 
 
 if __name__ == "__main__":

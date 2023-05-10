@@ -113,10 +113,10 @@ def domains():
 
 @app.route("/check-url", methods=["POST"])
 def check_url():
-
+    app.logger.info(request.json["url"])
     client = vt.Client(VT_API_KEY)
-    response = client.scan_url(request.args.get("url"))
-
+    response = client.scan_url(request.json["url"])
+    # @todo catch invalid url error and style output
     return jsonify(response.json())
 
 

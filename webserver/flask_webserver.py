@@ -122,6 +122,14 @@ def domains():
     return render_template("clients.html", domains=domains)
 
 
+@app.route("/tools")
+def tools():
+    if "username" in session:
+        return render_template("tools.html")
+    else:
+        return redirect(url_for("login"))
+
+
 @app.route("/check-url", methods=["POST"])
 def check_url():
     if "username" in session:

@@ -2,6 +2,7 @@ import sqlite3
 import requests
 import time
 import configparser
+import base64
 
 
 # API Key einlesen
@@ -14,9 +15,9 @@ API= config_file["credentials"]["API"]
 
 #send post to receive id
 def checkurl(target):
-    target = target
-    payload = "url="+target
+    target = base64.urlsafe_b64encode(target.encode()).decode().strip("=")
     url = "https://www.virustotal.com/api/v3/urls"
+    payload = url + target
     headers = {
         "accept": "application/json",
         "x-apikey": API,

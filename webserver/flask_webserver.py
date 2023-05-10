@@ -12,6 +12,7 @@ import sqlite3
 import requests
 import vt
 import configparser
+import base64
 
 
 config = configparser.ConfigParser()
@@ -88,9 +89,9 @@ def settings():
         }
         response = requests.get(api_url, headers=headers)
         vt_quota = []
-        vt_quota.append(["api_requests_hourly"] + list(response.json()["data"]["api_requests_hourly"]["user"].values()))
-        vt_quota.append(["api_requests_daily"] + list(response.json()["data"]["api_requests_daily"]["user"].values()))
-        vt_quota.append(["api_requests_monthly"] + list(response.json()["data"]["api_requests_monthly"]["user"].values()))
+        vt_quota.append(["API requests this hour"] + list(response.json()["data"]["api_requests_hourly"]["user"].values()))
+        vt_quota.append(["API requests today"] + list(response.json()["data"]["api_requests_daily"]["user"].values()))
+        vt_quota.append(["API requests this month"] + list(response.json()["data"]["api_requests_monthly"]["user"].values()))
         return render_template("settings.html", vt_quota=vt_quota)
     else:
         return redirect(url_for("login"))
@@ -125,8 +126,14 @@ def domains():
 @app.route("/check-url", methods=["POST"])
 def check_url():
     if "username" in session:
-        client = vt.Client(VT_API_KEY)
-        response = client.scan_url(request.json["url"])
+        url_id = base64.urlsafe_b64encode(request.json["url"].encode()).decode().strip("=")
+        api_url = f"https://www.virustotal.com/api/v3/urls/{url_id}"
+        app.logger.info(api_url)
+        headers = {
+            "accept": "application/json",
+            "x-apikey": VT_API_KEY
+        }
+        response = requests.get(api_url, headers=headers)
         # @todo catch invalid url error and style output
         return jsonify(response.json())
     else:

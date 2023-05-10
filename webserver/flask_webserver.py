@@ -16,7 +16,7 @@ import base64
 
 config = configparser.ConfigParser()
 
-config.read("config.ini")
+config.read("../sh/config.ini")
 config.sections()
 VT_API_KEY = config["credentials"]["API"]
 app = Flask(__name__)
@@ -69,7 +69,7 @@ def home():
         conn = sqlite3.connect("database.db")
         c = conn.cursor()
         c.execute(
-            "SELECT source_ip, destination_ip, vt_score FROM dns_queries LIMIT 10"
+            "SELECT destinations, vt_score, count, vt_lastcheck FROM destinations LIMIT 10"
         )
         rows = c.fetchall()
         conn.close()
@@ -77,6 +77,14 @@ def home():
     else:
         return redirect(url_for("login"))
 
+@app.route('/charts')
+def charts():
+    conn = sqlite3.connect("database.db")
+    c = conn.cursor()
+    c.execute("SELECT destinations, count FROM destinations LIMIT 5")
+    rows = c.fetchall()
+    conn.close()
+    return jsonify(rows)
 
 @app.route("/settings")
 def settings():

@@ -15,9 +15,8 @@ API= config_file["credentials"]["API"]
 
 #send post to receive id
 def checkurl(target):
-    target = base64.urlsafe_b64encode(target.encode()).decode().strip("=")
     url = "https://www.virustotal.com/api/v3/urls"
-    payload = url + target
+    payload = "url="+target
     headers = {
         "accept": "application/json",
         "x-apikey": API,
@@ -91,7 +90,6 @@ def update_vt_score_domains():
 
 def update_vt_score_ips():
     table_name = "dns_queries"
-    host =  requests.get('https://ifconfig.me/ip').text.strip()
     conn = sqlite3.connect('../webserver/database.db')
     c = conn.cursor()
 
@@ -109,11 +107,11 @@ def update_vt_score_ips():
         # Überprüfe, ob das vt_score und vt_lastcheck Feld NULL ist und die source_ip oder destination_ip nicht die Host-IP ist
         if vt_score is None:
             # Rufe checkip auf und speichere das Ergebnis in vt_score
-            if source_ip == host:
+            if source_ip == "router":
                 vt_score = checkip(destination_ip)
                 if vt_score == "0/0":
                     vt_score="unrated"
-            elif destination_ip == host:
+            elif destination_ip == "router":
                 vt_score = checkip(source_ip)
                 if vt_score == "0/0":
                     vt_score="unrated"
@@ -123,5 +121,46 @@ def update_vt_score_ips():
     conn.commit()
     conn.close()
 
+def create_destinations_table():
+    # Verbindung zur Datenbank herstellen
+    conn = sqlite3.connect('../webserver/database.db')
+    c = conn.cursor()
+
+    # Neue Tabelle 'destinations' erstellen
+    c.execute('''CREATE TABLE IF NOT EXISTS destinations 
+                (source_ip TEXT, destination_ip TEXT, vt_score INTEGER, vt_lastcheck TEXT, destinations TEXT, count INTEGER DEFAULT 1, 
+                PRIMARY KEY (source_ip, destination_ip, destinations))''')
+
+    # Daten aus 'dns_queries' Tabelle extrahieren
+    c.execute('''SELECT source_ip, destination_ip, vt_score, vt_lastcheck 
+                FROM dns_queries''')
+
+    # Alle Einträge durchgehen und in die 'destinations' Tabelle einfügen
+    for row in c.fetchall():
+        source_ip, destination_ip, vt_score, vt_lastcheck = row
+
+        # Nur Einträge mit 'router' in source_ip oder destination_ip berücksichtigen
+        if source_ip == 'router' or destination_ip == 'router':
+            # Überprüfen, ob der Eintrag bereits existiert
+            c.execute('''SELECT * FROM destinations WHERE source_ip=? AND destination_ip=? AND destinations=?''',
+                      (source_ip, destination_ip, destination_ip if source_ip == 'router' else source_ip))
+
+            existing_row = c.fetchone()
+
+            if existing_row is None:
+                # Eintrag existiert noch nicht, also neuen Eintrag erstellen
+                c.execute('''INSERT INTO destinations (source_ip, destination_ip, vt_score, vt_lastcheck, destinations) 
+                            VALUES (?, ?, ?, ?, ?)''',
+                          (source_ip, destination_ip, vt_score, vt_lastcheck, destination_ip if source_ip == 'router' else source_ip))
+            else:
+                # Eintrag existiert bereits, also count um 1 erhöhen
+                c.execute('''UPDATE destinations SET count = count + 1 WHERE source_ip=? AND destination_ip=? AND destinations=?''',
+                          (source_ip, destination_ip, destination_ip if source_ip == 'router' else source_ip))
+
+    # Änderungen speichern und Verbindung schließen
+    conn.commit()
+    conn.close()
+
 update_vt_score_domains()
 update_vt_score_ips()
+create_destinations_table()

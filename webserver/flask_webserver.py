@@ -10,7 +10,6 @@ from flask import (
 )
 import sqlite3
 import requests
-import vt
 import configparser
 import base64
 
@@ -134,8 +133,10 @@ def check_url():
             "x-apikey": VT_API_KEY
         }
         response = requests.get(api_url, headers=headers)
-        # @todo catch invalid url error and style output
-        return jsonify(response.json())
+        if response.status_code != 200:
+            return "Invalid url.", 400
+        # @todo style output
+        return jsonify(response.json()["data"]["attributes"]["total_votes"])
     else:
         return redirect(url_for("login"))
 

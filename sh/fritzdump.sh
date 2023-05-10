@@ -8,7 +8,7 @@
 FRITZIP=http://fritz.box
 
 # Load configuration file
-source config.ini
+source config.ini 1>/dev/null 2>&1
 
 # Use configuration parameters
 FRITZUSER=$username

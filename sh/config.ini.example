@@ -1,5 +1,6 @@
-# credentials
+# Credentials for fritzbox and VirusTotal API
 # adjust accordingly
-username="username"
-password="password"
-API="apikey"
+[credentials]
+username=username
+password=password
+API=apikey

@@ -201,15 +201,19 @@ def update_vt_scores(amount):
     c = conn.cursor()
 
     # SQL-Abfrage ausführen
-    c.execute('''SELECT * FROM destinations ORDER BY vt_lastcheck ASC LIMIT {amount}}''')
+    c.execute(f'''SELECT * FROM destinations ORDER BY vt_lastcheck ASC LIMIT {amount}''')
 
     for row in c.fetchall():
         destination, count, vt_score, vt_lastcheck = row
         print(destination)
         if is_ipv4_address(destination) == True:
             vt_score = checkip(destination)
+            if vt_score == "0/0":
+                    vt_score="unrated"
         else:
             vt_score = checkurl(destination)
+            if vt_score == "0/0":
+                    vt_score="unrated"
         current_time = time.strftime('%Y-%m-%d %H:%M:%S')
         c.execute(f"UPDATE destinations SET vt_score = ?, vt_lastcheck = ? WHERE destination = ?", (vt_score, current_time, destination))
 

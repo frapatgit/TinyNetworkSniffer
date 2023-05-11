@@ -124,10 +124,10 @@ def queries():
 def domains():
     conn = sqlite3.connect("database.db")
     c = conn.cursor()
-    c.execute("SELECT * FROM dns_queries")
-    domains = c.fetchall()
+    c.execute("SELECT * FROM hosts ")
+    rows = c.fetchall()
     conn.close()
-    return render_template("clients.html", domains=domains)
+    return render_template("clients.html", rows=rows)
 
 
 @app.route("/tools")

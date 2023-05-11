@@ -62,14 +62,13 @@ def logout():
     response.set_cookie("session", "", expires=0)
     return response
 
-
 @app.route("/home")
 def home():
     if "username" in session:
         conn = sqlite3.connect("database.db")
         c = conn.cursor()
         c.execute(
-            "SELECT destinations, vt_score, count, vt_lastcheck FROM destinations ORDER BY vt_score DESC LIMIT 10"
+            "SELECT destination, count, vt_score, vt_lastcheck FROM destinations ORDER BY vt_score DESC LIMIT 10"
         )
         rows = c.fetchall()
         conn.close()
@@ -81,7 +80,7 @@ def home():
 def charts():
     conn = sqlite3.connect("database.db")
     c = conn.cursor()
-    c.execute("SELECT destinations, count FROM destinations LIMIT 5")
+    c.execute("SELECT destination, count FROM destinations LIMIT 5")
     rows = c.fetchall()
     conn.close()
     return rows
@@ -110,7 +109,7 @@ def queries():
         conn = sqlite3.connect("database.db")
         c = conn.cursor()
         c.execute(
-            "SELECT source_ip, destination_ip, timestamp, vt_score FROM dns_queries LIMIT 20"
+            "SELECT source_ip, destination_ip, timestamp,protocol, dns_query, vt_score FROM dns_queries LIMIT 20"
         )
         rows = c.fetchall()
         print(rows)

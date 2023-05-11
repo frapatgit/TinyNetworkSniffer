@@ -32,12 +32,17 @@
 			<div class="dashboard">
 				<div class="dashboard-item">
 					<h2>Recent queries</h2>
+					<h3>
+						(Latest 20)
+					</h3>
 					<table>
 						<thead>
 							<tr>
 								<th>Source</th>
 								<th>Destination</th>
 								<th>Time</th>
+								<th>Protocol</th>
+								<th>DNS query</th>
 								<th>Virustotal score</th>
 							</tr>
 						</thead>
@@ -48,6 +53,8 @@
 								<td>{{ row[1] }}</td>
 								<td>{{ row[2] }}</td>
 								<td>{{ row[3] }}</td>
+								<td>{{ row[4] }}</td>
+								<td>{{ row[5] }}</td>
 							</tr>
 							{% endfor %}
 							</tr>

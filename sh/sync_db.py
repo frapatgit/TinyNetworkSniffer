@@ -1,6 +1,7 @@
 import sqlite3
 import json
 import requests
+import os
 
 
 # Verbindung zur Datenbank erstellen oder vorhandene Verbindung öffnen
@@ -55,3 +56,10 @@ with open('targets.txt', 'r') as f:
 conn.commit()
         # Verbindung zur Datenbank schließen
 conn.close()
+
+def done():
+    print("Daten erfolgreich in die Datenbank kopiert, starte löschen der targets.txt")
+    os.remove("targets.txt")
+    print("targets.txt gelöscht")
+
+done()

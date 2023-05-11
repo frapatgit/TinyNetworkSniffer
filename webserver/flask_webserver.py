@@ -69,7 +69,7 @@ def home():
         conn = sqlite3.connect("database.db")
         c = conn.cursor()
         c.execute(
-            "SELECT destinations, vt_score, count, vt_lastcheck FROM destinations LIMIT 10"
+            "SELECT destinations, vt_score, count, vt_lastcheck FROM destinations ORDER BY vt_score DESC LIMIT 10"
         )
         rows = c.fetchall()
         conn.close()
@@ -84,7 +84,7 @@ def charts():
     c.execute("SELECT destinations, count FROM destinations LIMIT 5")
     rows = c.fetchall()
     conn.close()
-    return jsonify(rows)
+    return rows
 
 @app.route("/settings")
 def settings():

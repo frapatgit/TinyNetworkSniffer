@@ -6,6 +6,7 @@
 
 # set the interval to 15 seconds
 interval=10
+scan_count=0
 
 while true; do
     # wait for $interval seconds
@@ -26,4 +27,13 @@ while true; do
     bash extract_destination.sh &
     python sync_db.py &
     python check_targets.py &
+    # erhöhe den count für den scan vorgang
+    scan_count+=12
+    #starte scan nur alle 30 minuten
+    if [ $scan_count -ge 1800 ]
+    then
+        # starte scan für hosts
+        python scan_network.py &
+    fi
+
 done

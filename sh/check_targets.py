@@ -2,13 +2,11 @@ import sqlite3
 import requests
 import time
 import configparser
-import base64
 
 
 # API Key einlesen
 config_file = configparser.ConfigParser()
 config_file.read("config.ini")
-
 API= config_file["credentials"]["API"]
 #set vt api v3
 #send post and get requests for urls

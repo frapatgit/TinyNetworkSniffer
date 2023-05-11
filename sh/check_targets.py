@@ -1,6 +1,7 @@
 import sqlite3
 import requests
 import time
+import datetime
 import configparser
 import re
 
@@ -182,19 +183,25 @@ def killthequota():
         vt_quota_month= list(response.json()["data"]["api_requests_monthly"]["user"].values())
         print(vt_quota_today,vt_quota_month)
         if vt_quota_today[0] < vt_quota_today[1] and vt_quota_month[0] < vt_quota_month[1]:
-            update_vt_scores()
-            update_possible= True
+            now = datetime.datetime.now().time()
+            target_time = datetime.time(hour=23, minute=45)
+            if now >= target_time:
+                amount = vt_quota_today[1] - vt_quota_today[0] 
+                update_vt_scores(amount)
+                update_possible= True
+            else:
+                update_possible= False
         else:
             update_possible= False
-        print(update_possible)
+        print("DB Update possible:" , update_possible)
 
-def update_vt_scores():
+def update_vt_scores(amount):
     # Verbindung zur Datenbank herstellen
     conn = sqlite3.connect('../webserver/database.db')
     c = conn.cursor()
 
     # SQL-Abfrage ausführen
-    c.execute('''SELECT * FROM destinations ORDER BY vt_lastcheck ASC LIMIT 10''')
+    c.execute('''SELECT * FROM destinations ORDER BY vt_lastcheck ASC LIMIT {amount}}''')
 
     for row in c.fetchall():
         destination, count, vt_score, vt_lastcheck = row

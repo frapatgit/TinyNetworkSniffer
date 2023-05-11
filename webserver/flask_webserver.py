@@ -119,6 +119,12 @@ def queries():
     else:
         return redirect(url_for("login"))
 
+@app.route("/donate")
+def donate():
+    if "username" in session:
+        return render_template("donate.html")
+    else:
+        return redirect(url_for("login"))
 
 @app.route("/clients")
 def domains():

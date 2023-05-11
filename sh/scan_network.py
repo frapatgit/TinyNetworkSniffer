@@ -11,18 +11,12 @@ def get_network_cidr():
     ip_net = ipaddress.ip_network(f"{gateway}/{netmask}", strict=False)
     return str(ip_net)
 
-def get_hostnames(ip_addresses):
-    nm = nmap.PortScanner()
-    nm.scan(hosts=ip_addresses, arguments="-sL -n")
-    hosts = nm.all_hosts()
-    hostnames = [nm[host].hostname() for host in hosts if 'hostname' in nm[host]]
-    return hostnames
-
 def scan_network():
     # Erstellen einer Verbindung zur Datenbank
     conn = sqlite3.connect('../webserver/database.db')
     cursor = conn.cursor()
-
+    # Löschen aller Einträge aus der Tabelle 'hosts'
+    cursor.execute('DROP TABLE IF EXISTS hosts')
     # Erstellen einer neuen Tabelle für Hosts, wenn sie noch nicht existiert
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS hosts (
@@ -40,8 +34,6 @@ def scan_network():
     print("Starte scanning der aktiven hosts.." )
     nm = nmap.PortScanner()
     nm.scan(hosts=subnet, arguments='-sn')
-    # Löschen aller Einträge aus der Tabelle 'hosts'
-    cursor.execute('DELETE FROM hosts')
 
     # Durchlaufen der Ergebnisse und Einfügen in die Tabelle
     for host in nm.all_hosts():

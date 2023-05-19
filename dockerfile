@@ -4,6 +4,7 @@ WORKDIR /webserver
 
 COPY requirements.txt requirements.txt
 COPY sh/config.ini config.ini
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 COPY webserver /webserver

@@ -1,3 +1,14 @@
+echo "# Credentials for fritzbox and VirusTotal API" >> .sh/config.ini
+echo "# adjust accordingly" >> .sh/config.ini
+echo "[credentials]" >> .sh/config
+clear
+echo "setup credentials for Virustotal API and Fritzbox:"
+read -p "Fritzbox username: " userInput
+echo "$userInput" >> .sh/config.ini
+read -p "Fritzbox passwort: " userInput
+echo "$userInput" >> .sh/config.ini
+read -p "Virustotal API Key: " userInput
+echo "$userInput" >> .sh/config.ini
 echo "[#] creating certificates for the webserver..."
 cd webserver
 mkdir cert

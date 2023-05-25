@@ -20,6 +20,7 @@ if [ ! -d "cert" ]; then
         mkdir cert
         cd cert
         openssl req -x509 -newkey rsa:4096 -sha256 -nodes -keyout key.pem -out cert.pem -subj "/CN=TinyNetworkSniffer" -days 365
+        cd ..
         echo "[#] certs created"
 fi
 cd ..

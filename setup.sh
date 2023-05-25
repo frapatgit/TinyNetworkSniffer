@@ -7,11 +7,11 @@ if [ ! -e "config.ini" ]; then
         clear
         echo "setup credentials for Virustotal API and Fritzbox:"
         read -p "Fritzbox username: " userInput
-        echo "username = $userInput" >> config.ini
+        echo "username=$userInput" >> config.ini
         read -p "Fritzbox passwort: " userInput
-        echo "password = $userInput" >> config.ini
+        echo "password=$userInput" >> config.ini
         read -p "Virustotal API Key: " userInput
-        echo "API = $userInput" >> config.ini
+        echo "API=$userInput" >> config.ini
 fi
 cd ..
 cd webserver

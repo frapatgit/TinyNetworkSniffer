@@ -1,1 +1,1 @@
-docker build -t tns:latest .
+docker build --network host -t tns:latest .

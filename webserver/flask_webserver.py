@@ -17,7 +17,7 @@ import base64
 
 config = configparser.ConfigParser()
 
-config.read("config.ini")
+config.read("../sh/config.ini")
 config.sections()
 VT_API_KEY = config["credentials"]["API"]
 app = Flask(__name__)

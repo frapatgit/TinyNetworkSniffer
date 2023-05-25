@@ -1,9 +1,11 @@
-FROM python:3.9-slim-buster
+FROM python:3.9-alpine
 
 WORKDIR /webserver
 
 COPY requirements.txt requirements.txt
 COPY sh/config.ini config.ini
+RUN apk add gcc musl-dev python3-dev libffi-dev openssl-dev cargo pkgconfig
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 

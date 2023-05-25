@@ -1,16 +1,17 @@
 cd sh
 if [ ! -e "config.ini" ]; then
-        echo "# Credentials for fritzbox and VirusTotal API" >> .sh/config.ini
-        echo "# adjust accordingly" >> .sh/config.ini
-        echo "[credentials]" >> .sh/config
+        touch config.ini
+        echo "# Credentials for fritzbox and VirusTotal API" >> config.ini
+        echo "# adjust accordingly" >> config.ini
+        echo "[credentials]" >> config.ini
         clear
         echo "setup credentials for Virustotal API and Fritzbox:"
         read -p "Fritzbox username: " userInput
-        echo "$userInput" >> sh/config.ini
+        echo "username = $userInput" >> config.ini
         read -p "Fritzbox passwort: " userInput
-        echo "$userInput" >> sh/config.ini
+        echo "password = $userInput" >> config.ini
         read -p "Virustotal API Key: " userInput
-        echo "$userInput" >> sh/config.ini
+        echo "API = $userInput" >> config.ini
 fi
 cd ..
 cd webserver
@@ -30,6 +31,6 @@ bash docker-run.sh
 echo "[#] webserver is ready"
 echo "[#] starting monitoring"
 cd ./sh
-bash nohup main.sh &
+bash main.sh
 echo "[#] monitoring started"
 echo "[#] setup completed"

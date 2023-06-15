@@ -123,6 +123,7 @@ def update_vt_score_ips():
 
 def create_destinations_table():
     # Verbindung zur Datenbank herstellen
+    # Does db already exist?
     conn = sqlite3.connect('../webserver/database.db')
     c = conn.cursor()
 
@@ -221,7 +222,12 @@ def update_vt_scores(amount):
     conn.commit()
     conn.close()
 
-update_vt_score_domains()
-update_vt_score_ips()
-create_destinations_table()
-killthequota()
+
+def main():
+    create_destinations_table()
+    update_vt_score_domains()
+    update_vt_score_ips()
+    killthequota()
+
+if __name__ == '__main__':
+    main()

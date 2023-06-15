@@ -24,9 +24,9 @@ while true; do
     fi
 
     # start extract_destinations.sh and sync_db.py
-    bash extract_destination.sh &
-    python sync_db.py &
-    python check_targets.py &
+    bash extract_destination.sh
+    python sync_db.py
+    python check_targets.py
     # erhöhe den count für den scan vorgang
     scan_count+=12
     #starte scan nur alle 30 minuten

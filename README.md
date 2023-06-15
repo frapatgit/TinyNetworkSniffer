@@ -6,6 +6,19 @@
 
 Patrick Frank und Johannes Reusch.
 
+## Benutzung
+
+
+
+### Webserver
+
+Der Webserver läuft in einem Docker Container  und benötig nichts anderes als Docker selbst.
+Von innerhalb des Verzeichnisses kann er gestartet werden mit:
+```bash
+docker build -t myimage .; 
+docker run -p 5000:5000 myimage:latest
+```
+Und ist dann standartmäßig unter "http://127.0.0.1:5000" erreichbar.
 
 
 ## Epic:

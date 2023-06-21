@@ -10,15 +10,19 @@ Patrick Frank und Johannes Reusch.
 
 
 
-### Webserver
+### Einrichtng
+Im Verzeichnis TinyNetworkScanner das Setup starten:
 
-Der Webserver läuft in einem Docker Container  und benötig nichts anderes als Docker selbst.
-Von innerhalb des Verzeichnisses kann er gestartet werden mit:
-```bash
-docker build -t myimage .; 
-docker run -p 5000:5000 myimage:latest
+```bash setup.py
 ```
-Und ist dann standartmäßig unter "http://127.0.0.1:5000" erreichbar.
+Im Zuge des Einrichtungsprozesses wird man nach den Fritzboxzugangsdaten und dem Virustotal API Key gefragt.
+Anschließend werden die Zertifikate für den Server erstellt, der Dockercontainer gebaut und das Monitoring gestartet.
+
+Folgende Zeilen deutet auf eine erfolgreiche Installation und Einrichtung hin:
+```echo "[#] monitoring started"
+echo "[#] setup completed"```
+
+Der Webserver ist standardmäßig unter `https://127.0.0.1:5000` bzw. im lokalen Netz unter `https://[HostIP]:5000` erreichbar.
 
 
 ## Epic:

@@ -1,16 +1,32 @@
 #Dependency check
+# Überprüfen, ob das Paket "sqlite3" bereits installiert ist
+if ! command -v sqlite3 &> /dev/null; then
+  echo "sqlite3 installation missing. installing now..."
+  
+  # Paketinstallation je nach Linux-Distribution
+  if [[ -f /etc/debian_version ]]; then
+    sudo apt-get update
+    sudo apt-get install sqlite3
+  else
+    echo "[!] unknown OS. Please install sqlite3 manually"
+    exit 1
+  fi
+  echo "[#] sqlite3 successful installed"
+else
+  echo "[#] sqlite3 is already installed"
+fi
 # Überprüfen, ob das Paket "python-nmap" bereits installiert ist
 if pip3 show python-nmap >/dev/null 2>&1; then
-  echo "Das Paket python-nmap ist bereits installiert."
+  echo "[#] python-nmap already installed"
 else
-  echo "Das Paket python-nmap wird installiert..."
+  echo "[#] installing python-nmap..."
   pip3 install python-nmap
 fi
 # Überprüfen, ob das Paket "netifaces" bereits installiert ist
 if pip show netifaces >/dev/null 2>&1; then
-  echo "Das Paket netifaces ist bereits installiert."
+  echo "[#] netifaces already installed"
 else
-  echo "Das Paket netifaces wird installiert..."
+  echo "[#] installing netifacest..."
   pip install netifaces
 fi
 cd sh

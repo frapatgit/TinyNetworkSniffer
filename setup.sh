@@ -26,7 +26,7 @@ fi
 if pip show netifaces >/dev/null 2>&1; then
   echo "[#] netifaces already installed"
 else
-  echo "[#] installing netifacest..."
+  echo "[#] installing netifaces..."
   pip install netifaces
 fi
 cd sh
@@ -54,6 +54,17 @@ if [ ! -d "cert" ]; then
         cd ..
         echo "[#] certs created"
 fi
+#create db
+# SQLite-Datenbank erstellen und zur Datenbank wechseln
+sqlite3 database.db <<EOF
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL,
+    password TEXT NOT NULL
+);
+EOF
+
+echo "Die Datenbank database.db wurde erfolgreich erstellt."
 #create user for login
 # Pfad zur SQLite-Datenbankdatei
 DB_FILE="database.db"

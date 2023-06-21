@@ -1,4 +1,19 @@
 #Dependency check
+# Überprüfen, ob das Paket "wireshark" bereits installiert ist
+if ! command -v tshark &> /dev/null; then
+  echo "tshark installation missing. installing now..."
+  
+  # Paketinstallation je nach Linux-Distribution
+  if [[ -f /etc/debian_version ]]; then
+    sudo apt-get update
+    sudo apt-get install wireshark
+  else
+    echo "[!] unknown OS. Please install tshark manually"
+    exit 1
+  fi
+  echo "[#] tshark successful installed"
+else
+  echo "[#] tshark is already installed"
 # Überprüfen, ob das Paket "sqlite3" bereits installiert ist
 if ! command -v sqlite3 &> /dev/null; then
   echo "sqlite3 installation missing. installing now..."

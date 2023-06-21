@@ -13,14 +13,17 @@ Patrick Frank und Johannes Reusch.
 ### Einrichtng
 Im Verzeichnis TinyNetworkScanner das Setup starten:
 
-```bash setup.py
+```
+bash setup.py
 ```
 Im Zuge des Einrichtungsprozesses wird man nach den Fritzboxzugangsdaten und dem Virustotal API Key gefragt.
 Anschließend werden die Zertifikate für den Server erstellt, der Dockercontainer gebaut und das Monitoring gestartet.
 
 Folgende Zeilen deutet auf eine erfolgreiche Installation und Einrichtung hin:
-```echo "[#] monitoring started"
-echo "[#] setup completed"```
+```
+echo "[#] monitoring started"
+echo "[#] setup completed"
+```
 
 Der Webserver ist standardmäßig unter `https://127.0.0.1:5000` bzw. im lokalen Netz unter `https://[HostIP]:5000` erreichbar.
 

@@ -26,15 +26,11 @@ fi
 #create user for login
 # Pfad zur SQLite-Datenbankdatei
 DB_FILE="database.db"
+# Benutzernamen und Passwort abfragen
+read -p "Benutzername: " username
+read -p "Passwort: " -s password
 # SQL-Befehl zum Einfügen eines Benutzers in die Tabelle "users"
-INSERT_SQL="INSERT INTO users (username, password) VALUES ('$1', '$2');"
-
-# Überprüfen, ob Benutzername und Passwort als Argumente übergeben wurden
-if [ $# -ne 2 ]; then
-  echo "Bitte geben Sie einen Benutzernamen und ein Passwort als Argumente an."
-  exit 1
-fi
-
+INSERT_SQL="INSERT INTO users (username, password) VALUES ('$username', '$password');"
 # Eintrag hinzufügen
 sqlite3 "$DB_FILE" "$INSERT_SQL"
 #

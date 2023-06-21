@@ -1,3 +1,10 @@
+# Überprüfen, ob das Paket "python-nmap" bereits installiert ist
+if pip3 show python-nmap >/dev/null 2>&1; then
+  echo "Das Paket python-nmap ist bereits installiert."
+else
+  echo "Das Paket python-nmap wird installiert..."
+  pip3 install python-nmap
+fi
 cd sh
 if [ ! -e "config.ini" ]; then
         touch config.ini

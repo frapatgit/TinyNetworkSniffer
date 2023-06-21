@@ -23,6 +23,21 @@ if [ ! -d "cert" ]; then
         cd ..
         echo "[#] certs created"
 fi
+#create user for login
+# Pfad zur SQLite-Datenbankdatei
+DB_FILE="database.db"
+# SQL-Befehl zum Einfügen eines Benutzers in die Tabelle "users"
+INSERT_SQL="INSERT INTO users (username, password) VALUES ('$1', '$2');"
+
+# Überprüfen, ob Benutzername und Passwort als Argumente übergeben wurden
+if [ $# -ne 2 ]; then
+  echo "Bitte geben Sie einen Benutzernamen und ein Passwort als Argumente an."
+  exit 1
+fi
+
+# Eintrag hinzufügen
+sqlite3 "$DB_FILE" "$INSERT_SQL"
+#
 cd ..
 echo "[#] building docker"
 bash docker-build.sh

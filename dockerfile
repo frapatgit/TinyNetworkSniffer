@@ -11,8 +11,8 @@ RUN pip install -r requirements.txt
 
 COPY webserver /webserver
 
-# Einrichten des Shared Folders
-VOLUME /shared
+# Einrichten des Shared Folders als Volumen
+VOLUME /webserver
 
 # Port für die Kommunikation mit dem Webserver freigeben
 EXPOSE 5000

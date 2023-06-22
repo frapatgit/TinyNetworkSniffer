@@ -86,6 +86,7 @@ echo "[#] webserver is ready"
 echo "[#] starting monitoring"
 cd ./sh
 chmod +x fritzdump.sh scan_network.py sync_db.py main.sh extract_destination.sh check_targets.py
+chmod +wx ../webserver/database.db
 bash main.sh
 echo "[#] monitoring started"
 echo "[#] setup completed"

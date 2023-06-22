@@ -85,7 +85,7 @@ def update_vt_score_domains():
             current_time = time.strftime('%Y-%m-%d %H:%M:%S')  # Aktueller Zeitstempel
             c.execute(f"UPDATE {table_name} SET vt_score = ?, vt_lastcheck = ? WHERE id = ?", (vt_score, current_time, row[0]))
 
-    conn.commit()
+        conn.commit()
     conn.close()
 
 def update_vt_score_ips():
@@ -118,7 +118,7 @@ def update_vt_score_ips():
             # Aktualisiere den Eintrag in der Datenbank mit vt_score und dem aktuellen Zeitstempel
             current_time = time.strftime('%Y-%m-%d %H:%M:%S')
             c.execute(f"UPDATE {table_name} SET vt_score = ?, vt_lastcheck = ? WHERE id = ?", (vt_score, current_time, row[0]))
-    conn.commit()
+        conn.commit()
     conn.close()
 
 def create_destinations_table():
@@ -171,7 +171,7 @@ def create_destinations_table():
         c.execute('''DELETE FROM destinations WHERE destination='' ''')
     
     # Änderungen speichern und Verbindung schließen
-    conn.commit()
+        conn.commit()
     conn.close()
 
 def is_ipv4_address(address):
@@ -223,7 +223,7 @@ def update_vt_scores(amount):
         c.execute(f"UPDATE destinations SET vt_score = ?, vt_lastcheck = ? WHERE destination = ?", (vt_score, current_time, destination))
 
     # Verbindung schließen
-    conn.commit()
+        conn.commit()
     conn.close()
 
 

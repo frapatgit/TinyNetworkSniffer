@@ -128,9 +128,13 @@ def create_destinations_table():
     c = conn.cursor()
 
     # Neue Tabelle 'destinations' erstellen
+    # Neue Tabelle 'destinations' erstellen
     c.execute('''CREATE TABLE IF NOT EXISTS destinations 
-                (destination TEXT, count INTEGER DEFAULT 1, vt_score INTEGER, vt_lastcheck TEXT, 
-                 PRIMARY KEY (destination))''')
+                    (id INTEGER PRIMARY KEY AUTOINCREMENT, 
+                     destination TEXT, 
+                     count INTEGER DEFAULT 1, 
+                     vt_score INTEGER, 
+                     vt_lastcheck TEXT)''')
 
     # Daten aus 'dns_queries' Tabelle extrahieren
     c.execute('''SELECT source_ip, destination_ip, dns_query, vt_score, vt_lastcheck 

@@ -11,15 +11,16 @@ from flask import (
 from OpenSSL import SSL
 import sqlite3
 import requests
-import configparser
 import base64
 
 
-config = configparser.ConfigParser()
-
-config.read("config.ini")
-config.sections()
-VT_API_KEY = config["credentials"]["API"]
+config = "./sh/config.ini"
+with open(config, "r") as file:
+    for line in file:
+        line = line.strip()
+        if line.startswith("API ="):
+            VT_API_KEY = line.split("=")[1]
+            break
 app = Flask(__name__)
 app.secret_key = "?rtl/S&O=@873@q(o!1t"
 

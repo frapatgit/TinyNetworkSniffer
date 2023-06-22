@@ -14,7 +14,7 @@ Patrick Frank und Johannes Reusch.
 Im Verzeichnis TinyNetworkScanner das Setup starten:
 
 ```
-bash setup.py
+bash setup.sh
 ```
 Im Zuge des Einrichtungsprozesses wird man nach den Fritzboxzugangsdaten und dem Virustotal API Key gefragt.
 Anschließend werden die Zertifikate für den Server erstellt, der Dockercontainer gebaut und das Monitoring gestartet.

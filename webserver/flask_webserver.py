@@ -14,7 +14,7 @@ import requests
 import base64
 
 
-config = "./sh/config.ini"
+config = "config.ini"
 with open(config, "r") as file:
     for line in file:
         line = line.strip()

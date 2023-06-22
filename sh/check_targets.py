@@ -74,8 +74,8 @@ def update_vt_score_domains():
 
     # Für jeden Eintrag
     for row in rows:
-        destination = row[0]
-        vt_score = row[2]
+        destination = row[1]
+        vt_score = row[3]
 
         # Überprüfe, ob das dns_query Feld und das vt_score Feld nicht NULL sind
         if is_ipv4_address(destination) == True and vt_score is None:

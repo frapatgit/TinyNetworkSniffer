@@ -30,7 +30,7 @@ Der Webserver ist standardmäßig unter `https://127.0.0.1:5000` bzw. im lokalen
 
 ## Epic:
 
-Als Netzwerkadministrator möchte ich einen Docker-Container erstellen, der den Netzwerktraffic auf meinem Router (FritzBox) im Netzwerk mitschneidet und die Ziel-Domain und -IP's mit Hilfe von VirusTotal überprüft. Die als bösartig markierten Ziele sollen mit den nicht als bösartig markierten Zielen an einen Webserver gesendet werden.Dieser Webserver soll in einem Dockercontainer laufen. Auf diesem Webserver möchte ich mich anmelden und Statistiken zu den bösartigen Domains anzeigen lassen können. Der Datenaustausch zwischen dem Sniffer und dem Webserver soll verschlüsselt stattfinden, um die Daten vor unautorisiertem Zugriff zu schützen.
+Als Netzwerkadministrator möchte ich den Netzwerktraffic auf meinem Router (FritzBox) im Netzwerk mitschneiden und die Ziel-Domain und -IP's mit Hilfe von VirusTotal überprüfen lassen. Die als bösartig markierten Ziele sollen mit den nicht als bösartig markierten Zielen auf einem Webserver aufbereitet und dargestellt werden.Dieser Webserver soll in einem Dockercontainer laufen. Auf diesem Webserver möchte ich mich anmelden und Statistiken zu den bösartigen Domains anzeigen lassen können. Der Datenaustausch zwischen dem Sniffer und dem Webserver soll verschlüsselt stattfinden, um die Daten vor unautorisiertem Zugriff zu schützen.
 
 ## User-Storys:
 

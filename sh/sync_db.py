@@ -53,7 +53,7 @@ with open('targets.txt', 'r') as f:
             cursor.execute('INSERT INTO dns_queries (timestamp, source_ip, destination_ip, protocol, dns_query) VALUES (?, ?, ?, ?, ?)',
                            (data['Timestamp'], src_ip, dst_ip, data['Protocol'], data['DNSQuery']))
         # Änderungen speichern
-conn.commit()
+        conn.commit()
         # Verbindung zur Datenbank schließen
 conn.close()
 

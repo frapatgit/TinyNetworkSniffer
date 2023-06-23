@@ -14,7 +14,7 @@ import requests
 import base64
 import configparser
 
-
+TAG = "[flask_webserver]"
 config = configparser.ConfigParser()
 
 config.read("config.ini")
@@ -113,7 +113,7 @@ def queries():
             "SELECT source_ip, destination_ip, timestamp,protocol, dns_query, vt_score FROM dns_queries LIMIT 20"
         )
         rows = c.fetchall()
-        print(rows)
+        print(TAG, rows)
         conn.close()
         return render_template("queries.html", rows=rows)
     else:

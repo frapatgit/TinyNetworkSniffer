@@ -4,6 +4,8 @@ import netifaces
 import ipaddress
 import socket
 
+TAG = "[scan_network]"
+
 def get_network_cidr():
     gateway = netifaces.gateways()['default'][netifaces.AF_INET][0]
     addrs = netifaces.ifaddresses(netifaces.gateways()['default'][netifaces.AF_INET][1])
@@ -29,9 +31,9 @@ def scan_network():
 
     # IP-Adresse des Standardgateways finden
     subnet = get_network_cidr()
-    print("Subnetzmaske gefunden: "+subnet )
+    print(f"{TAG}Subnetzmaske gefunden: "+subnet )
     # Scannen des Netzwerks mit nmap
-    print("Starte scanning der aktiven hosts.." )
+    print(f"{TAG}Starte scanning der aktiven hosts.." )
     nm = nmap.PortScanner()
     nm.scan(hosts=subnet, arguments='-sn')
 

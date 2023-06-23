@@ -5,7 +5,7 @@ import datetime
 import configparser
 import re
 
-
+TAG = "[check_targets]"
 # API Key einlesen
 config_file = configparser.ConfigParser()
 config_file.read("config.ini")
@@ -38,7 +38,7 @@ def checkurl(target):
     maliciousscore = data["data"]["attributes"]["last_analysis_stats"]["malicious"]
     suspiciousscore = data["data"]["attributes"]["last_analysis_stats"]["suspicious"]
     undetectedscore = data["data"]["attributes"]["last_analysis_stats"]["undetected"]
-    print("harmlessscore: " + str(harmlessscore), "maliciousscore: "+ str(maliciousscore),"suspiciousscore: "+ str(suspiciousscore),"undetectedscore: "+ str(undetectedscore))
+    print(f"{TAG}harmlessscore: " + str(harmlessscore), "maliciousscore: "+ str(maliciousscore),"suspiciousscore: "+ str(suspiciousscore),"undetectedscore: "+ str(undetectedscore))
     vt_scoretotal= str(maliciousscore + suspiciousscore) + "/" + str(harmlessscore + maliciousscore + suspiciousscore)
     return vt_scoretotal
 
@@ -57,7 +57,7 @@ def checkip(ip):
     maliciousscore = data["data"]["attributes"]["last_analysis_stats"]["malicious"]
     suspiciousscore = data["data"]["attributes"]["last_analysis_stats"]["suspicious"]
     undetectedscore = data["data"]["attributes"]["last_analysis_stats"]["undetected"]
-    print("harmlessscore: " + str(harmlessscore), "maliciousscore: "+ str(maliciousscore),"suspiciousscore: "+ str(suspiciousscore),"undetectedscore: "+ str(undetectedscore))
+    print(f"{TAG}harmlessscore: " + str(harmlessscore), "maliciousscore: "+ str(maliciousscore),"suspiciousscore: "+ str(suspiciousscore),"undetectedscore: "+ str(undetectedscore))
     vt_scoretotal= str(maliciousscore + suspiciousscore) + "/" + str(harmlessscore + maliciousscore + suspiciousscore)
     return vt_scoretotal
 
@@ -74,7 +74,7 @@ def update_vt_score_domains():
 
     # Für jeden Eintrag
     for row in rows:
-        destination = row[1]
+        destination = str(row[1])
         vt_score = row[3]
 
         # Überprüfe, ob das dns_query Feld und das vt_score Feld nicht NULL sind
@@ -186,7 +186,7 @@ def killthequota():
         response = requests.get(api_url, headers=headers)
         vt_quota_today = list(response.json()["data"]["api_requests_daily"]["user"].values())
         vt_quota_month= list(response.json()["data"]["api_requests_monthly"]["user"].values())
-        print(vt_quota_today,vt_quota_month)
+        print(TAG, vt_quota_today, vt_quota_month)
         if vt_quota_today[0] < vt_quota_today[1] and vt_quota_month[0] < vt_quota_month[1]:
             now = datetime.datetime.now().time()
             target_time = datetime.time(hour=23, minute=45)
@@ -198,7 +198,7 @@ def killthequota():
                 update_possible= False
         else:
             update_possible= False
-        print("DB Update possible:" , update_possible)
+        print(f"{TAG}DB Update possible:" , update_possible)
 
 def update_vt_scores(amount):
     # Verbindung zur Datenbank herstellen

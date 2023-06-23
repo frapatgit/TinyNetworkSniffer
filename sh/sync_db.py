@@ -3,7 +3,7 @@ import json
 import requests
 import os
 
-
+TAG = "[sync_db]"
 # Verbindung zur Datenbank erstellen oder vorhandene Verbindung öffnen
 conn = sqlite3.connect('../webserver/database.db')
 # Cursor-Objekt erstellen
@@ -58,8 +58,8 @@ conn.commit()
 conn.close()
 
 def done():
-    print("Daten erfolgreich in die Datenbank kopiert, starte löschen der targets.txt")
+    print(f"{TAG}Daten erfolgreich in die Datenbank kopiert, starte löschen der targets.txt")
     os.remove("targets.txt")
-    print("targets.txt gelöscht")
+    print(f"{TAG}targets.txt gelöscht")
 
 done()

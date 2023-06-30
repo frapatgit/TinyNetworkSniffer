@@ -24,6 +24,7 @@ def checkurl(target):
     }
     response = requests.post(url, data=payload, headers=headers)
     data = response.json()
+    print(data)
     id_value = data["data"]["id"][2:-11]
     #send get to receive vt scores
     url2 = url+"/"+id_value
@@ -33,6 +34,7 @@ def checkurl(target):
     }
     response = requests.get(url2, headers=headers)
     data = response.json()
+    print(data)
     #extract vt scores
     harmlessscore = data["data"]["attributes"]["last_analysis_stats"]["harmless"]
     maliciousscore = data["data"]["attributes"]["last_analysis_stats"]["malicious"]
@@ -53,6 +55,7 @@ def checkip(ip):
     response = requests.get(url, headers=headers)
     data = response.json()
     #extract vt scores
+    print(data)
     harmlessscore = data["data"]["attributes"]["last_analysis_stats"]["harmless"]
     maliciousscore = data["data"]["attributes"]["last_analysis_stats"]["malicious"]
     suspiciousscore = data["data"]["attributes"]["last_analysis_stats"]["suspicious"]
@@ -169,7 +172,14 @@ def create_destinations_table():
         c.execute('''UPDATE destinations SET count = count + 1 WHERE destination=?''',
                   (dns_query,))
         c.execute('''DELETE FROM destinations WHERE destination='' ''')
-    
+        c.execute("""
+            DELETE FROM destinations
+            WHERE rowid NOT IN (
+            SELECT MIN(rowid)
+            FROM destinations
+            GROUP BY destination
+        """
+        ) 
     # Änderungen speichern und Verbindung schließen
         conn.commit()
     conn.close()

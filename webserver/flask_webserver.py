@@ -72,6 +72,7 @@ def home():
             "SELECT destination, count, vt_score, vt_lastcheck FROM destinations ORDER BY vt_score DESC LIMIT 10"
         )
         rows = c.fetchall()
+        print(rows)
         conn.close()
         return render_template("home.html", rows=rows)
     else:
@@ -109,8 +110,11 @@ def queries():
     if "username" in session:
         conn = sqlite3.connect("database.db")
         c = conn.cursor()
-        c.execute(
-            "SELECT source_ip, destination_ip, timestamp,protocol, dns_query, vt_score FROM dns_queries LIMIT 20"
+        c.execute("""
+            SELECT source_ip, destination_ip, timestamp,protocol, dns_query, vt_score 
+            FROM dns_queries WHERE protocol = 'DNS' AND destination_ip != 'router'            
+            LIMIT  50
+        """
         )
         rows = c.fetchall()
         print(TAG, rows)
